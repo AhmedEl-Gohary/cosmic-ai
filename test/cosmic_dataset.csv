@@ -1,0 +1,2230 @@
+code,E,X,R,W,CFP
+"int sum(int x, int y) {",2,1,0,0,3
+int z = 0;,0,0,0,1,1
+z = x + y;,0,0,1,1,2
+return z;,0,0,1,0,1
+void checkEvenOrOdd(int x) {,1,0,0,0,1
+if (x % 2 == 0),0,0,1,0,1
+"printf(""%d is Even\n"", x);",0,0,0,1,1
+else,0,0,0,0,0
+"printf(""%d is odd\n"", x);",0,0,0,1,1
+int square(int x) {,1,1,0,0,2
+return x * x;,0,0,2,0,2
+"int maximum(int x, int y) {",2,1,0,0,3
+int max = 0;,0,0,0,1,1
+if (x < y),0,0,2,0,2
+max = y;,0,0,1,1,2
+max = x;,0,0,1,1,2
+return max;,0,0,1,0,1
+int main() {,0,1,0,0,1
+"int x = 0, y = 0;",0,0,0,2,2
+"printf(""Give two integers numbers\n"");",0,0,0,1,1
+"scanf(""%d%d"", &x, &y);",0,0,2,0,2
+"int z = 0, result;",0,0,0,1,1
+z = x + 2;,0,0,1,1,2
+result = z;,0,0,1,1,2
+int tmp = square(z);,0,0,0,1,1
+"int su = sum(x, y);",0,0,0,1,1
+"int max = maximum(x, y);",0,0,0,1,1
+result += 2;,0,0,1,1,2
+checkEvenOrOdd(result);,0,0,0,0,0
+"printf(""The sum of %d and %d is : %d\n"", x, y, su);",0,0,0,1,1
+"printf(""The square of %d is : %d\n"", z, tmp);",0,0,0,1,1
+"printf(""The maximum of %d and %d is : %d\n"", x, y, max);",0,0,0,1,1
+return 0;,0,0,0,0,0
+#include <LiquidCrystal.h>,0,0,0,0,0
+"LiquidCrystal lcd(12, 11, 5, 4, 3, 2);",0,0,0,0,0
+int sensorVal=0;,0,0,0,0,0
+void setup() {,1,0,0,0,1
+Serial.begin(9600);,0,1,0,0,1
+"lcd.begin(16, 2);",0,1,0,0,1
+void loop() {,1,0,0,0,1
+int sensorVal = analogRead(A0);,1,0,0,0,1
+"Serial.print(""sensor Value: "");",0,1,0,0,1
+Serial.print(sensorVal);,0,1,0,0,1
+float voltage = (sensorVal / 1024.0) * 5.0;,0,0,0,0,0
+"Serial.print("", Volts: "");",0,1,0,0,1
+Serial.print(voltage);,0,1,0,0,1
+float temperature = (voltage - .5) * 100;,0,0,0,0,0
+"Serial.print("", degrees C: "");",0,1,0,0,1
+Serial.println(temperature);,0,1,0,0,1
+"lcd.setCursor(0, 0);",0,1,0,0,1
+"lcd.print(""Hello"");",0,1,0,0,1
+"lcd.setCursor(0, 1);",0,1,0,0,1
+"lcd.print(""Paris Temp: "");",0,1,0,0,1
+lcd.print(temperature);,0,1,0,0,1
+delay(1000);,0,1,0,0,1
+import java.util.*;,0,0,0,0,0
+import java.io.*;,0,0,0,0,0
+public class Solver {,0,0,0,0,0
+public static void solveSudoku(char[][] board) {,1,0,0,0,1
+// BitSets for storing used numbers,0,0,0,0,0
+BitSet[] row = new BitSet[9];,0,0,0,1,1
+BitSet[] col = new BitSet[9];,0,0,0,1,1
+BitSet[] subgrid = new BitSet[9];,0,0,0,1,1
+// Initializing BitSets,0,0,0,0,0
+for (int i = 0; i < 9; i++) {,0,0,1,0,1
+row[i] = new BitSet(9);,0,0,0,1,1
+col[i] = new BitSet(9);,0,0,0,1,1
+subgrid[i] = new BitSet(9);,0,0,0,1,1
+},0,0,0,0,0
+// Setting already used numbers to True,0,0,0,0,0
+for (int r = 0; r < 9; r++) {,0,0,1,0,1
+for (int c = 0; c < 9; c++) {,0,0,1,0,1
+char digit = board[r][c];,0,0,1,1,2
+if (digit != '.') {,0,0,1,0,1
+int idx = digit - '0' - 1;,0,0,1,1,2
+row[r].set(idx);,0,0,1,1,2
+col[c].set(idx);,0,0,1,1,2
+"int currentSubgrid = getSubgrid(r, c);",0,0,0,1,1
+subgrid[currentSubgrid].set(idx);,0,0,1,1,2
+"solve(board, 0, 0, row, col, subgrid);",0,0,0,0,0
+"private static boolean solve(char[][] board, int rowStart, int colStart, BitSet[] row, BitSet[] col, BitSet[] subgrid) {",6,1,0,0,7
+// Get the next empty cell and store as pair,0,0,0,0,0
+"Pair pos = getNextEmpty(board, rowStart, colStart);",0,0,0,1,1
+// Base case: no empty positions,0,0,0,0,0
+if (pos == null),0,0,1,0,1
+return true;,0,0,0,0,0
+// Get the union of sets to know all the used numbers,0,0,0,0,0
+"int currentSubgrid = getSubgrid(pos.r, pos.c);",0,0,0,1,1
+BitSet used = new BitSet(9);,0,0,0,1,1
+used.or(row[pos.r]);,0,0,1,1,2
+used.or(col[pos.c]);,0,0,1,1,2
+used.or(subgrid[currentSubgrid]);,0,0,1,1,2
+// Check if all the numbers (1 - 9) are used,0,0,0,0,0
+if (used.cardinality() == 9),0,0,1,0,1
+return false;,0,0,0,0,0
+// Otherwise loop over all possible numbers,0,0,0,0,0
+// Try all possible numbers using backtracking,0,0,0,0,0
+if (!used.get(i)) {,0,0,1,0,1
+board[pos.r][pos.c] = (char) (i + '0' + 1);,0,0,1,1,2
+row[pos.r].set(i);,0,0,1,1,2
+col[pos.c].set(i);,0,0,1,1,2
+subgrid[currentSubgrid].set(i);,0,0,1,1,2
+"if (solve(board, pos.r, pos.c, row, col ,subgrid))",0,0,0,0,0
+"row[pos.r].set(i, false);",0,0,1,1,2
+"col[pos.c].set(i, false);",0,0,1,1,2
+"subgrid[currentSubgrid].set(i, false);",0,0,1,1,2
+board[pos.r][pos.c] = '.';,0,0,1,1,2
+// Get the next empty cell,0,0,0,0,0
+"private static Pair getNextEmpty(char[][] board, int rowStart, int colStart) {",3,1,0,0,4
+if (board[r][c] == '.'),0,0,1,0,1
+"return new Pair(r, c);",0,0,0,0,0
+return null;,0,0,0,0,0
+// Finds the index of 3x3 sub-grid given the row and column indices,0,0,0,0,0
+"private static int getSubgrid(int row, int col) {",2,1,0,0,3
+return (row / 3) * 3 + col / 3;,0,0,2,0,2
+private static char[][] flatTo2D(char[] flat) {,1,1,0,0,2
+char[][] result = new char[9][9];,0,0,0,1,1
+for (int i = 0; i < 81; i += 9) {,0,0,1,0,1
+int r = i / 9;,0,0,1,1,2
+for (int c = 0; c < 9; c++),0,0,1,0,1
+result[r][c] = flat[i + c];,0,0,2,1,3
+return result;,0,0,1,0,1
+private static void printBoard(char[][] board) {,1,0,0,0,1
+for (char[] r : board) {,0,0,1,0,1
+for (char c : r),0,0,1,0,1
+"System.out.print(c + "" "");",0,0,1,1,2
+System.out.println();,0,0,0,1,1
+static class Pair {,0,0,0,0,0
+int r;,0,0,0,0,0
+int c;,0,0,0,0,0
+"public Pair(int r, int c) {",2,0,0,0,2
+this.r = r;,0,0,1,1,2
+this.c = c;,0,0,1,1,2
+public static void main(String[] args) throws FileNotFoundException {,1,0,0,0,1
+"Scanner sc = new Scanner(new File(""tests.txt""));",0,0,0,1,1
+long totalTime = 0;,0,0,0,1,1
+double puzzleCount = 0;,0,0,0,1,1
+while (sc.hasNextLine()) {,0,0,1,0,1
+char[] flatBoard = new char[81];,0,0,0,1,1
+String testBoard = sc.nextLine();,0,0,1,1,2
+for (int i = 0; i < 81; i++),0,0,1,0,1
+flatBoard[i] = testBoard.charAt(i);,0,0,2,1,3
+char[][] board = flatTo2D(flatBoard);,0,0,0,1,1
+long start = System.currentTimeMillis();,0,0,0,1,1
+solveSudoku(board);,0,0,0,0,0
+long finish = System.currentTimeMillis();,0,0,0,1,1
+long time = finish - start;,0,0,2,1,3
+totalTime += time;,0,0,2,1,3
+puzzleCount++;,0,0,1,1,2
+printBoard(board);,0,0,0,0,0
+"System.out.println(""Finished in "" + time + ""ms\n"");",0,0,1,1,2
+"System.out.println(""Average runtime is: "" + totalTime / puzzleCount + ""ms"");",0,0,2,1,3
+import java.util.ArrayList;,0,0,0,0,0
+import java.util.Collections;,0,0,0,0,0
+public class BubbleSort {,0,0,0,0,0
+double increment = 0.05;,0,0,0,1,1
+// Sorting in non-increasing order of Y coordinates so that it sorted visually,0,0,0,0,0
+"public void sort(ArrayList<Integer> arr, DrawRect rectArr, Visualizer vis) throws InterruptedException {",3,0,0,0,3
+boolean swapped;,0,0,0,0,0
+for (int i = 0; i < arr.size() - 1; i++) {,0,0,1,0,1
+swapped = false;,0,0,0,1,1
+for (int j = 0; j < arr.size() - 1 - i; j++) {,0,0,2,0,2
+Visualizer.noOfComparisons++;,0,0,1,1,2
+if (arr.get(j) < arr.get(j + 1)) {,0,0,2,0,2
+"Collections.swap(arr, j, j + 1);",0,0,2,1,3
+swapped = true;,0,0,0,1,1
+Thread.sleep(30);,0,0,0,0,0
+rectArr.setArr(arr);,0,0,1,1,2
+"rectArr.paintImmediately(0, 230, Visualizer.WIDTH, 900);",0,0,1,1,2
+"vis.setSize(Visualizer.WIDTH, (int) (Visualizer.HEIGHT + increment));",0,0,2,1,3
+increment = -increment;,0,0,1,1,2
+if (!swapped) break;,0,0,1,0,1
+System.out.println(arr);,0,0,1,1,2
+"vis.comparisons.setText(""No. of Comparisons: "" + Visualizer.noOfComparisons);",0,0,1,1,2
+Visualizer.noOfComparisons = 0;,0,0,0,1,1
+import java.awt.*;,0,0,0,0,0
+import javax.swing.*;,0,0,0,0,0
+public class DrawRect extends JPanel {,0,0,0,0,0
+public static final int HEIGHT = 900;,0,0,0,1,1
+public static final int WIDTH = 30;,0,0,0,1,1
+"public static final Color RECT_COLOR = new Color(135, 206, 235);",0,0,0,1,1
+ArrayList<Integer> arr;,0,0,0,0,0
+public DrawRect(ArrayList<Integer> heights) {,1,0,0,0,1
+// Shallow Cloning,0,0,0,0,0
+arr = heights;,0,0,1,1,2
+// Changing the instance variable so that paint component is called,0,0,0,0,0
+public void setArr(ArrayList<Integer> newArr) {,1,0,0,0,1
+arr = newArr;,0,0,1,1,2
+@Override,0,0,0,0,0
+public void paintComponent(Graphics g) {,1,0,0,0,1
+Graphics2D graphics = (Graphics2D) g;,0,0,1,1,2
+super.paintComponent(graphics);,0,0,1,0,1
+graphics.setColor(RECT_COLOR);,0,0,1,1,2
+"for (int i = 0, x = 10; x <= 1580; x += WIDTH + 4, i++) {",0,0,2,0,2
+int y = arr.get(i);,0,0,1,1,2
+"graphics.fillRect(x, y, WIDTH, HEIGHT);",0,0,2,1,3
+public class HeapSort {,0,0,0,0,0
+public static double increment = 0.05;,0,0,0,1,1
+int n = arr.size();,0,0,1,1,2
+for (int i = n / 2 - 1; i >= 0; i--),0,0,1,0,1
+"heapify(arr, n, i, rectArr, vis);",0,0,0,0,0
+for (int i = n - 1; i > 0; i--) {,0,0,1,0,1
+"Collections.swap(arr, 0, i);",0,0,1,1,2
+Thread.sleep(50);,0,0,0,0,0
+"heapify(arr, i, 0, rectArr, vis);",0,0,0,0,0
+"public void heapify(ArrayList<Integer> arr, int n, int i, DrawRect rectArr, Visualizer vis) throws InterruptedException {",5,0,0,0,5
+int max = i;,0,0,1,1,2
+int left = 2 * i + 1;,0,0,1,1,2
+int right = 2 * i + 2;,0,0,1,1,2
+// update the max if left node is greater,0,0,0,0,0
+if (left < n && arr.get(left) < arr.get(max)),0,0,3,0,3
+max = left;,0,0,1,1,2
+// update the max if right node is greater,0,0,0,0,0
+if (right < n && arr.get(right) < arr.get(max)),0,0,3,0,3
+max = right;,0,0,1,1,2
+"// if the max element is not the root, I need to heapify",0,0,0,0,0
+if (max != i) {,0,0,2,0,2
+"Collections.swap(arr, i, max);",0,0,2,1,3
+"heapify(arr, n, max, rectArr, vis);",0,0,0,0,0
+Visualizer.noOfComparisons += 3;,0,0,1,1,2
+public class InsertionSort {,0,0,0,0,0
+if (arr.get(i) < arr.get(i + 1)) {,0,0,2,0,2
+"Collections.swap(arr, i, i + 1);",0,0,2,1,3
+for (int j = i; j > 0; j--) {,0,0,1,0,1
+if (arr.get(j) > arr.get(j - 1)) {,0,0,2,0,2
+"Collections.swap(arr, j, j - 1);",0,0,2,1,3
+} else break;,0,0,0,0,0
+public class Main {,0,0,0,0,0
+public static void main(String[] args) throws InterruptedException {,1,0,0,0,1
+new Visualizer();,0,0,0,0,0
+public class MergeSort {,0,0,0,0,0
+"public void sort(ArrayList<Integer> arr, int start, int end, DrawRect rectArr, Visualizer vis) throws InterruptedException {",5,0,0,0,5
+if (start >= end) return;,0,0,2,0,2
+int mid = (start + end) / 2;,0,0,2,1,3
+#define START_YEAR 18,0,0,0,0,0
+#define START_WDAY 0,0,0,0,0,0
+#define ONESECOND 1000,0,0,0,0,0
+#define btnRIGHT 0,0,0,0,0,0
+#define btnUP 1,0,0,0,0,0
+#define btnDOWN 2,0,0,0,0,0
+#define btnLEFT 3,0,0,0,0,0
+#define btnSELECT 4,0,0,0,0,0
+#define btnNONE 5,0,0,0,0,0
+unsigned long int lastTime = 0;,0,0,0,0,0
+unsigned long int editTime = 0;,0,0,0,0,0
+unsigned long int keyTime = 0;,0,0,0,0,0
+byte editMode = 0;,0,0,0,0,0
+bool dispFlag = false;,0,0,0,0,0
+"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);",0,0,0,0,0
+"byte hh, mm, ss;",0,0,0,0,0
+"byte dd, MM, YY;",0,0,0,0,0
+byte wd;,0,0,0,0,0
+"byte daysOfMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};",0,0,0,0,0
+"const char* months[12] = {""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun"", ""Jul"", ""Aug"", ""Sep"", ""Oct"", ""Nov"", ""Dec""};",0,0,0,0,0
+"const char* wdays[7] = {""Mon"", ""Tue"", ""Wed"", ""Thu"", ""Fri"", ""Sat"", ""Sun""};",0,0,0,0,0
+void dispSec() {,0,0,0,0,0
+"lcd.setCursor(10, 0);",0,1,0,0,1
+if (ss < 10) lcd.print('0');,0,1,0,0,1
+"lcd.print(ss, DEC);",0,1,0,0,1
+void dispMin() {,0,0,0,0,0
+"lcd.setCursor(7, 0);",0,1,0,0,1
+if (mm < 10) lcd.print('0');,0,1,0,0,1
+"lcd.print(mm, DEC);",0,1,0,0,1
+void dispHour() {,0,0,0,0,0
+"lcd.setCursor(4, 0);",0,1,0,0,1
+if (hh < 10) lcd.print('0');,0,1,0,0,1
+"lcd.print(hh, DEC);",0,1,0,0,1
+void dispDay() {,0,0,0,0,0
+if (dd < 9) lcd.print('0');,0,1,0,0,1
+"lcd.print(dd + 1, DEC);",0,1,0,0,1
+"lcd.setCursor(13, 1);",0,1,0,0,1
+lcd.print(wdays[wd]);,0,1,0,0,1
+void dispMonth() {,0,0,0,0,0
+"lcd.setCursor(3, 1);",0,1,0,0,1
+lcd.print(months[MM]);,0,1,0,0,1
+void dispYear() {,0,0,0,0,0
+"lcd.setCursor(7, 1);",0,1,0,0,1
+"lcd.print(YY + 2000, DEC);",0,1,0,0,1
+void dispAlarm(bool on) {,0,0,0,0,0
+"on ? lcd.print(""<<<"") : lcd.print("" "");",0,2,0,0,2
+"lcd.setCursor(13, 0);",0,1,0,0,1
+"on ? lcd.print("">>>"") : lcd.print("" "");",0,2,0,0,2
+void dispAll() {,0,0,0,0,0
+dispMin();,0,0,0,0,0
+dispHour();,0,0,0,0,0
+dispDay();,0,0,0,0,0
+dispMonth();,0,0,0,0,0
+dispYear();,0,0,0,0,0
+void clearMin() {,0,0,0,0,0
+"lcd.print("" "");",0,1,0,0,1
+void clearHour() {,0,0,0,0,0
+void clearDay() {,0,0,0,0,0
+"lcd.print("" "");",0,1,0,0,1
+void clearMonth() {,0,0,0,0,0
+void clearYear() {,0,0,0,0,0
+"lcd.print("" "");",0,1,0,0,1
+void countTime() {,0,0,0,0,0
+ss++;,0,0,0,0,0
+if (ss < 60) {,0,0,0,0,0
+dispSec();,0,0,0,0,0
+return;,0,0,0,0,0
+ss = 0;,0,0,0,0,0
+mm++;,0,0,0,0,0
+if (mm < 60) {,0,0,0,0,0
+mm = 0;,0,0,0,0,0
+hh++;,0,0,0,0,0
+if (hh < 24) {,0,0,0,0,0
+hh = 0;,0,0,0,0,0
+dd++; wd++;,0,0,0,0,0
+if (wd == 7) wd = 0;,0,0,0,0,0
+if (dd < daysOfMonth[MM]) {,0,0,0,0,0
+dd = 0;,0,0,0,0,0
+if (MM < 12) {,0,0,0,0,0
+YY++;,0,0,0,0,0
+if ((YY % 4) == 0) daysOfMonth[1] = 29;,0,0,0,0,0
+else daysOfMonth[1] = 28;,0,0,0,0,0
+if ((YY % 100) == 0) daysOfMonth[1] = 28;,0,0,0,0,0
+byte readKeypad() {,0,0,0,0,0
+int adc = analogRead(A0);,1,0,0,0,1
+if (adc > 1000) return btnNONE;,0,0,0,0,0
+if (adc < 50) return btnRIGHT;,0,0,0,0,0
+if (adc < 250) return btnUP;,0,0,0,0,0
+if (adc < 450) return btnDOWN;,0,0,0,0,0
+if (adc < 650) return btnLEFT;,0,0,0,0,0
+if (adc < 850) return btnSELECT;,0,0,0,0,0
+return btnNONE;,0,0,0,0,0
+"pinMode(10, INPUT);",0,0,0,0,0
+"pinMode(A0, INPUT);",0,0,0,0,0
+"lcd.setCursor(6, 0); lcd.print(':');",0,2,0,0,2
+"lcd.setCursor(9, 0); lcd.print(':');",0,2,0,0,2
+"lcd.setCursor(2, 1); lcd.print('-');",0,2,0,0,2
+"lcd.setCursor(6, 1); lcd.print('-');",0,2,0,0,2
+"lcd.setCursor(11, 1); lcd.print(',');",0,2,0,0,2
+YY = START_YEAR;,0,0,0,0,0
+wd = START_WDAY;,0,0,0,0,0
+dispAll();,0,0,0,0,0
+delay(ONESECOND);,0,1,0,0,1
+unsigned long int currentTime = millis();,0,0,0,0,0
+if (currentTime >= lastTime + ONESECOND) {,0,0,0,0,0
+countTime();,0,0,0,0,0
+lastTime = currentTime;,0,0,0,0,0
+if (currentTime >= editTime + 500) {,0,0,0,0,0
+if (editMode) {,0,0,0,0,0
+switch (editMode) {,0,0,0,0,0
+case 1:,0,0,0,0,0
+dispFlag ? dispHour() : clearHour();,0,0,0,0,0
+break;,0,0,0,0,0
+case 2:,0,0,0,0,0
+dispFlag ? dispMin() : clearMin();,0,0,0,0,0
+case 3:,0,0,0,0,0
+dispFlag ? dispDay() : clearDay();,0,0,0,0,0
+case 4:,0,0,0,0,0
+dispFlag ? dispMonth() : clearMonth();,0,0,0,0,0
+case 5:,0,0,0,0,0
+dispFlag ? dispYear() : clearYear();,0,0,0,0,0
+dispFlag = 1 - dispFlag;,0,0,0,0,0
+editTime = currentTime;,0,0,0,0,0
+if (currentTime >= keyTime + 10) {,0,0,0,0,0
+byte key = readKeypad();,0,0,0,0,0
+if (key == btnSELECT) {,0,0,0,0,0
+editTime = 0;,0,0,0,0,0
+editMode += 1;,0,0,0,0,0
+if (editMode > 5) {,0,0,0,0,0
+editMode = 0;,0,0,0,0,0
+if ((key == btnUP) && editMode) {,0,0,0,0,0
+case 1: hh = (hh + 1) % 24;,0,0,0,0,0
+case 2: mm = (mm + 1) % 60;,0,0,0,0,0
+case 3: dd = (dd + 1) % daysOfMonth[MM];,0,0,0,0,0
+wd = (wd + 1) % 7;,0,0,0,0,0
+if (dd == 0) wd = (wd + 35 - daysOfMonth[MM]) % 7;,0,0,0,0,0
+case 4: wd = (wd + daysOfMonth[MM]) % 7;,0,0,0,0,0
+MM = (MM + 1) % 12;,0,0,0,0,0
+if (MM == 0) {,0,0,0,0,0
+wd = (wd + 6) % 7;,0,0,0,0,0
+if ((YY % 4) == 0) wd = (wd + 5) % 7;,0,0,0,0,0
+unsigned int days = 365;,0,0,0,0,0
+if ((YY % 4) == 0) days = 366;,0,0,0,0,0
+if ((YY % 100) == 0) days = 365;,0,0,0,0,0
+wd = (wd + days) % 7;,0,0,0,0,0
+YY = (YY + 1) % 56;,0,0,0,0,0
+keyTime = currentTime;,0,0,0,0,0
+if (key != btnNONE) keyTime += 200;,0,0,0,0,0
+#include <Wire.h>,0,0,0,0,0
+#include <LiquidCrystal_I2C.h>,0,0,0,0,0
+#include <DHT.h>,0,0,0,0,0
+#include <EEPROM.h>,0,0,0,0,0
+#include <SPI.h>,0,0,0,0,0
+#include <SD.h>,0,0,0,0,0
+#include <RTClib.h>,0,0,0,0,0
+#define DHT_PIN 2,0,0,0,0,0
+#define DHT_TYPE DHT22,0,0,0,0,0
+#define SOIL_MOISTURE_PIN A0,0,0,0,0,0
+#define LIGHT_SENSOR_PIN A1,0,0,0,0,0
+#define PUMP_RELAY_PIN 3,0,0,0,0,0
+#define FAN_RELAY_PIN 4,0,0,0,0,0
+#define LIGHT_RELAY_PIN 5,0,0,0,0,0
+#define HEATER_RELAY_PIN 6,0,0,0,0,0
+#define BUZZER_PIN 7,0,0,0,0,0
+#define BUTTON_MENU 8,0,0,0,0,0
+#define BUTTON_UP 9,0,0,0,0,0
+#define BUTTON_DOWN 10,0,0,0,0,0
+#define SD_CS_PIN 53,0,0,0,0,0
+"LiquidCrystal_I2C lcd(0x27, 20, 4);",0,0,0,0,0
+"DHT dht(DHT_PIN, DHT_TYPE);",0,0,0,0,0
+RTC_DS3231 rtc;,0,0,0,0,0
+enum MenuState {,0,0,0,0,0
+"HOME,",0,0,0,0,0
+"TEMPERATURE_SETTINGS,",0,0,0,0,0
+"HUMIDITY_SETTINGS,",0,0,0,0,0
+"MOISTURE_SETTINGS,",0,0,0,0,0
+"LIGHT_SETTINGS,",0,0,0,0,0
+"TIME_SETTINGS,",0,0,0,0,0
+DATA_LOGGING,0,0,0,0,0
+};,0,0,0,0,0
+MenuState currentMenu = HOME;,0,0,0,0,0
+byte selectedSetting = 0;,0,0,0,0,0
+struct Settings {,0,0,0,0,0
+float tempMin;,0,0,0,0,0
+float tempMax;,0,0,0,0,0
+float humidityMin;,0,0,0,0,0
+float humidityMax;,0,0,0,0,0
+int moistureMin;,0,0,0,0,0
+int moistureMax;,0,0,0,0,0
+int lightMin;,0,0,0,0,0
+int lightMax;,0,0,0,0,0
+int lightOnHour;,0,0,0,0,0
+int lightOnMinute;,0,0,0,0,0
+int lightOffHour;,0,0,0,0,0
+int lightOffMinute;,0,0,0,0,0
+bool dataloggingEnabled;,0,0,0,0,0
+int loggingInterval;,0,0,0,0,0
+} settings;,0,0,0,0,0
+unsigned long lastSensorRead = 0;,0,0,0,0,0
+unsigned long lastButtonCheck = 0;,0,0,0,0,0
+unsigned long lastLCDUpdate = 0;,0,0,0,0,0
+unsigned long lastDataLog = 0;,0,0,0,0,0
+unsigned long wateringStartTime = 0;,0,0,0,0,0
+bool isWatering = false;,0,0,0,0,0
+bool fanOn = false;,0,0,0,0,0
+bool heaterOn = false;,0,0,0,0,0
+bool lightOn = false;,0,0,0,0,0
+bool alarmTriggered = false;,0,0,0,0,0
+float currentTemp;,0,0,0,0,0
+float currentHumidity;,0,0,0,0,0
+int currentMoisture;,0,0,0,0,0
+int currentLight;,0,0,0,0,0
+int buttonMenuState = HIGH;,0,0,0,0,0
+int buttonUpState = HIGH;,0,0,0,0,0
+int buttonDownState = HIGH;,0,0,0,0,0
+int lastButtonMenuState = HIGH;,0,0,0,0,0
+int lastButtonUpState = HIGH;,0,0,0,0,0
+int lastButtonDownState = HIGH;,0,0,0,0,0
+bool buttonMenuPressed = false;,0,0,0,0,0
+bool buttonUpPressed = false;,0,0,0,0,0
+bool buttonDownPressed = false;,0,0,0,0,0
+char filename[13];,0,0,0,0,0
+File dataFile;,0,0,0,0,0
+"pinMode(PUMP_RELAY_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(FAN_RELAY_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(LIGHT_RELAY_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(HEATER_RELAY_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(BUZZER_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(BUTTON_MENU, INPUT_PULLUP);",0,0,0,0,0
+"pinMode(BUTTON_UP, INPUT_PULLUP);",0,0,0,0,0
+"pinMode(BUTTON_DOWN, INPUT_PULLUP);",0,0,0,0,0
+"digitalWrite(PUMP_RELAY_PIN, HIGH);",0,1,0,0,1
+"digitalWrite(FAN_RELAY_PIN, HIGH);",0,1,0,0,1
+"digitalWrite(LIGHT_RELAY_PIN, HIGH);",0,1,0,0,1
+"digitalWrite(HEATER_RELAY_PIN, HIGH);",0,1,0,0,1
+lcd.init();,0,0,0,0,0
+lcd.backlight();,0,0,0,0,0
+"lcd.print(""Greenhouse Control"");",0,1,0,0,1
+"lcd.print(""System Initializing"");",0,1,0,0,1
+dht.begin();,0,1,0,0,1
+if (!rtc.begin()) {,0,1,0,0,1
+"lcd.setCursor(0, 2);",0,1,0,0,1
+"lcd.print(""RTC Failed!"");",0,1,0,0,1
+while (1);,0,0,0,0,0
+if (rtc.lostPower()) {,0,0,0,0,0
+"rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));",0,0,0,0,0
+if (!SD.begin(SD_CS_PIN)) {,0,1,0,0,1
+"lcd.setCursor(0, 3);",0,1,0,0,1
+"lcd.print(""SD Card Failed!"");",0,1,0,0,1
+delay(2000);,0,1,0,0,1
+} else {,0,0,0,0,0
+"lcd.print(""SD Card OK"");",0,1,0,0,1
+loadSettings();,0,0,0,0,0
+createLogFile();,0,0,0,0,0
+lcd.clear();,0,1,0,0,1
+unsigned long currentMillis = millis();,0,0,0,0,0
+if (currentMillis - lastSensorRead >= 2000) {,0,0,0,0,0
+readSensors();,0,0,0,0,0
+controlActuators();,0,0,0,0,0
+lastSensorRead = currentMillis;,0,0,0,0,0
+if (currentMillis - lastButtonCheck >= 100) {,0,0,0,0,0
+checkButtons();,0,0,0,0,0
+processButtons();,0,0,0,0,0
+lastButtonCheck = currentMillis;,0,0,0,0,0
+if (currentMillis - lastLCDUpdate >= 500) {,0,0,0,0,0
+updateDisplay();,0,0,0,0,0
+lastLCDUpdate = currentMillis;,0,0,0,0,0
+if (settings.dataloggingEnabled && currentMillis - lastDataLog >= settings.loggingInterval * 1000) {,0,0,0,0,0
+logData();,0,0,0,0,0
+lastDataLog = currentMillis;,0,0,0,0,0
+if (isWatering && currentMillis - wateringStartTime >= 5000) {,0,0,0,0,0
+isWatering = false;,0,0,0,0,0
+if (alarmTriggered) {,0,0,0,0,0
+"tone(BUZZER_PIN, 1000, 100);",0,1,0,0,1
+void readSensors() {,0,0,0,0,0
+currentTemp = dht.readTemperature();,1,0,0,0,1
+currentHumidity = dht.readHumidity();,1,0,0,0,1
+"currentMoisture = map(analogRead(SOIL_MOISTURE_PIN), 0, 1023, 0, 100);",1,0,0,0,1
+"currentLight = map(analogRead(LIGHT_SENSOR_PIN), 0, 1023, 0, 100);",1,0,0,0,1
+if (isnan(currentTemp) || isnan(currentHumidity)) {,0,0,0,0,0
+"Serial.println(""Failed to read from DHT sensor!"");",0,1,0,0,1
+"Serial.print(""Temperature: "");",0,1,0,0,1
+Serial.print(currentTemp);,0,1,0,0,1
+"Serial.print("" C, Humidity: "");",0,1,0,0,1
+Serial.print(currentHumidity);,0,1,0,0,1
+"Serial.print(""%, Moisture: "");",0,1,0,0,1
+Serial.print(currentMoisture);,0,1,0,0,1
+"Serial.print(""%, Light: "");",0,1,0,0,1
+Serial.println(currentLight);,0,1,0,0,1
+void controlActuators() {,0,0,0,0,0
+DateTime now = rtc.now();,0,0,0,0,0
+int currentHour = now.hour();,0,0,0,0,0
+int currentMinute = now.minute();,0,0,0,0,0
+int currentTimeInMinutes = currentHour * 60 + currentMinute;,0,0,0,0,0
+int lightOnTimeInMinutes = settings.lightOnHour * 60 + settings.lightOnMinute;,0,0,0,0,0
+int lightOffTimeInMinutes = settings.lightOffHour * 60 + settings.lightOffMinute;,0,0,0,0,0
+if (currentMoisture < settings.moistureMin && !isWatering) {,0,0,0,0,0
+"digitalWrite(PUMP_RELAY_PIN, LOW);",0,1,0,0,1
+isWatering = true;,0,0,0,0,0
+wateringStartTime = millis();,0,0,0,0,0
+if (currentTemp > settings.tempMax && !fanOn) {,0,0,0,0,0
+"digitalWrite(FAN_RELAY_PIN, LOW);",0,1,0,0,1
+fanOn = true;,0,0,0,0,0
+} else if (currentTemp <= settings.tempMax - 1 && fanOn) {,0,0,0,0,0
+fanOn = false;,0,0,0,0,0
+if (currentTemp < settings.tempMin && !heaterOn) {,0,0,0,0,0
+"digitalWrite(HEATER_RELAY_PIN, LOW);",0,1,0,0,1
+heaterOn = true;,0,0,0,0,0
+} else if (currentTemp >= settings.tempMin + 1 && heaterOn) {,0,0,0,0,0
+heaterOn = false;,0,0,0,0,0
+bool shouldLightBeOn = false;,0,0,0,0,0
+if (lightOnTimeInMinutes < lightOffTimeInMinutes) {,0,0,0,0,0
+shouldLightBeOn = (currentTimeInMinutes >= lightOnTimeInMinutes && currentTimeInMinutes < lightOffTimeInMinutes);,0,0,0,0,0
+shouldLightBeOn = (currentTimeInMinutes >= lightOnTimeInMinutes || currentTimeInMinutes < lightOffTimeInMinutes);,0,0,0,0,0
+if (currentLight < settings.lightMin && shouldLightBeOn && !lightOn) {,0,0,0,0,0
+"digitalWrite(LIGHT_RELAY_PIN, LOW);",0,1,0,0,1
+lightOn = true;,0,0,0,0,0
+} else if ((currentLight >= settings.lightMax || !shouldLightBeOn) && lightOn) {,0,0,0,0,0
+lightOn = false;,0,0,0,0,0
+alarmTriggered = (currentTemp > settings.tempMax + 5) || (currentTemp < settings.tempMin - 5);,0,0,0,0,0
+void checkButtons() {,0,0,0,0,0
+int reading1 = digitalRead(BUTTON_MENU);,1,0,0,0,1
+int reading2 = digitalRead(BUTTON_UP);,1,0,0,0,1
+int reading3 = digitalRead(BUTTON_DOWN);,1,0,0,0,1
+if (reading1 != lastButtonMenuState) {,0,0,0,0,0
+lastButtonMenuState = reading1;,0,0,0,0,0
+if (reading1 == LOW) {,0,0,0,0,0
+buttonMenuPressed = true;,0,0,0,0,0
+if (reading2 != lastButtonUpState) {,0,0,0,0,0
+lastButtonUpState = reading2;,0,0,0,0,0
+if (reading2 == LOW) {,0,0,0,0,0
+buttonUpPressed = true;,0,0,0,0,0
+if (reading3 != lastButtonDownState) {,0,0,0,0,0
+lastButtonDownState = reading3;,0,0,0,0,0
+if (reading3 == LOW) {,0,0,0,0,0
+buttonDownPressed = true;,0,0,0,0,0
+void processButtons() {,0,0,0,0,0
+if (buttonMenuPressed) {,0,0,0,0,0
+buttonMenuPressed = false;,0,0,0,0,0
+currentMenu = (MenuState)(((int)currentMenu + 1) % 7);,0,0,0,0,0
+selectedSetting = 0;,0,0,0,0,0
+if (buttonUpPressed || buttonDownPressed) {,0,0,0,0,0
+updateSettings(buttonUpPressed ? 1 : -1);,0,0,0,0,0
+buttonUpPressed = false;,0,0,0,0,0
+buttonDownPressed = false;,0,0,0,0,0
+void updateSettings(int increment) {,0,0,0,0,0
+switch (currentMenu) {,0,0,0,0,0
+case TEMPERATURE_SETTINGS:,0,0,0,0,0
+if (selectedSetting == 0) {,0,0,0,0,0
+settings.tempMin += increment * 0.5;,0,0,0,0,0
+settings.tempMax += increment * 0.5;,0,0,0,0,0
+case HUMIDITY_SETTINGS:,0,0,0,0,0
+settings.humidityMin += increment * 1.0;,0,0,0,0,0
+settings.humidityMax += increment * 1.0;,0,0,0,0,0
+case MOISTURE_SETTINGS:,0,0,0,0,0
+settings.moistureMin += increment * 1;,0,0,0,0,0
+settings.moistureMax += increment * 1;,0,0,0,0,0
+case LIGHT_SETTINGS:,0,0,0,0,0
+settings.lightMin += increment * 1;,0,0,0,0,0
+settings.lightMax += increment * 1;,0,0,0,0,0
+case TIME_SETTINGS:,0,0,0,0,0
+switch (selectedSetting) {,0,0,0,0,0
+case 0:,0,0,0,0,0
+settings.lightOnHour = (settings.lightOnHour + increment + 24) % 24;,0,0,0,0,0
+settings.lightOnMinute = (settings.lightOnMinute + increment * 5 + 60) % 60;,0,0,0,0,0
+settings.lightOffHour = (settings.lightOffHour + increment + 24) % 24;,0,0,0,0,0
+settings.lightOffMinute = (settings.lightOffMinute + increment * 5 + 60) % 60;,0,0,0,0,0
+case DATA_LOGGING:,0,0,0,0,0
+settings.dataloggingEnabled = !settings.dataloggingEnabled;,0,0,0,0,0
+"settings.loggingInterval = max(10, settings.loggingInterval + increment * 10);",0,0,0,0,0
+default:,0,0,0,0,0
+selectedSetting = (selectedSetting + 1) % 2;,0,0,0,0,0
+"EEPROM.put(0, settings);",0,0,0,1,1
+void updateDisplay() {,0,0,0,0,0
+case HOME:,0,0,0,0,0
+displayHome();,0,0,0,0,0
+displayTemperatureSettings();,0,0,0,0,0
+displayHumiditySettings();,0,0,0,0,0
+displayMoistureSettings();,0,0,0,0,0
+displayLightSettings();,0,0,0,0,0
+displayTimeSettings();,0,0,0,0,0
+displayDataLoggingSettings();,0,0,0,0,0
+void displayHome() {,0,0,0,0,0
+"lcd.print(""T:"");",0,1,0,0,1
+"lcd.print(currentTemp, 1);",0,1,0,0,1
+"lcd.print(""C H:"");",0,1,0,0,1
+"lcd.print(currentHumidity, 0);",0,1,0,0,1
+"lcd.print(""% "");",0,1,0,0,1
+"lcd.print(""M:"");",0,1,0,0,1
+lcd.print(currentMoisture);,0,1,0,0,1
+"lcd.print(""% L:"");",0,1,0,0,1
+lcd.print(currentLight);,0,1,0,0,1
+"lcd.print(""P:"");",0,1,0,0,1
+"lcd.print(isWatering ? ""ON "" : ""OFF"");",0,1,0,0,1
+"lcd.print("" F:"");",0,1,0,0,1
+"lcd.print(fanOn ? ""ON "" : ""OFF"");",0,1,0,0,1
+"lcd.print("" H:"");",0,1,0,0,1
+"lcd.print(heaterOn ? ""ON "" : ""OFF"");",0,1,0,0,1
+"lcd.print(now.hour(), DEC);",0,1,0,0,1
+lcd.print(':');,0,1,0,0,1
+if (now.minute() < 10) {,0,0,0,0,0
+lcd.print('0');,0,1,0,0,1
+lcd.print(now.minute());,0,1,0,0,1
+"lcd.print("" L:"");",0,1,0,0,1
+"lcd.print(lightOn ? ""ON "" : ""OFF"");",0,1,0,0,1
+void displayTemperatureSettings() {,0,0,0,0,0
+"lcd.print(""Temperature Settings"");",0,1,0,0,1
+"lcd.print(""Min Temp: "");",0,1,0,0,1
+"lcd.print(settings.tempMin, 1);",0,1,0,0,1
+"lcd.print(""C "");",0,1,0,0,1
+"lcd.print(""Max Temp: "");",0,1,0,0,1
+"lcd.print(settings.tempMax, 1);",0,1,0,0,1
+"lcd.print(selectedSetting == 0 ? ""> Min"" : "" Min"");",0,1,0,0,1
+"lcd.setCursor(10, 3);",0,1,0,0,1
+"lcd.print(selectedSetting == 1 ? ""> Max"" : "" Max"");",0,1,0,0,1
+void displayHumiditySettings() {,0,0,0,0,0
+"lcd.print(""Humidity Settings "");",0,1,0,0,1
+"lcd.print(""Min Hum: "");",0,1,0,0,1
+"lcd.print(settings.humidityMin, 0);",0,1,0,0,1
+"lcd.print(""Max Hum: "");",0,1,0,0,1
+"lcd.print(settings.humidityMax, 0);",0,1,0,0,1
+void displayMoistureSettings() {,0,0,0,0,0
+"lcd.print(""Moisture Settings "");",0,1,0,0,1
+"lcd.print(""Min Moist: "");",0,1,0,0,1
+lcd.print(settings.moistureMin);,0,1,0,0,1
+"lcd.print(""Max Moist: "");",0,1,0,0,1
+lcd.print(settings.moistureMax);,0,1,0,0,1
+void displayLightSettings() {,0,0,0,0,0
+"lcd.print(""Light Settings "");",0,1,0,0,1
+"lcd.print(""Min Light: "");",0,1,0,0,1
+lcd.print(settings.lightMin);,0,1,0,0,1
+"lcd.print(""Max Light: "");",0,1,0,0,1
+lcd.print(settings.lightMax);,0,1,0,0,1
+void displayTimeSettings() {,0,0,0,0,0
+"lcd.print(""Light Timer Settings"");",0,1,0,0,1
+"lcd.print(""ON: "");",0,1,0,0,1
+if (settings.lightOnHour < 10) lcd.print('0');,0,1,0,0,1
+lcd.print(settings.lightOnHour);,0,1,0,0,1
+if (settings.lightOnMinute < 10) lcd.print('0');,0,1,0,0,1
+lcd.print(settings.lightOnMinute);,0,1,0,0,1
+"lcd.print(""OFF: "");",0,1,0,0,1
+if (settings.lightOffHour < 10) lcd.print('0');,0,1,0,0,1
+lcd.print(settings.lightOffHour);,0,1,0,0,1
+if (settings.lightOffMinute < 10) lcd.print('0');,0,1,0,0,1
+lcd.print(settings.lightOffMinute);,0,1,0,0,1
+"if (selectedSetting == 0) lcd.print(""> ON Hr "");",0,1,0,0,1
+"else if (selectedSetting == 1) lcd.print(""> ON Min"");",0,1,0,0,1
+"else if (selectedSetting == 2) lcd.print(""> OFF Hr"");",0,1,0,0,1
+"else if (selectedSetting == 3) lcd.print(""> OFFMin"");",0,1,0,0,1
+void displayDataLoggingSettings() {,0,0,0,0,0
+"lcd.print(""Data Logging Setup "");",0,1,0,0,1
+"lcd.print(""Status: "");",0,1,0,0,1
+"lcd.print(settings.dataloggingEnabled ? ""ENABLED "" : ""DISABLED"");",0,1,0,0,1
+"lcd.print(""Interval: "");",0,1,0,0,1
+lcd.print(settings.loggingInterval);,0,1,0,0,1
+"lcd.print(""sec "");",0,1,0,0,1
+"lcd.print(selectedSetting == 0 ? ""> Status"" : "" Status"");",0,1,0,0,1
+"lcd.print(selectedSetting == 1 ? ""> Interval"" : "" Interval"");",0,1,0,0,1
+void loadSettings() {,0,0,0,0,0
+if (EEPROM.read(0) == 0xFF) {,0,0,1,0,1
+settings.tempMin = 20.0;,0,0,0,0,0
+settings.tempMax = 30.0;,0,0,0,0,0
+settings.humidityMin = 40.0;,0,0,0,0,0
+settings.humidityMax = 80.0;,0,0,0,0,0
+settings.moistureMin = 30;,0,0,0,0,0
+settings.moistureMax = 70;,0,0,0,0,0
+settings.lightMin = 20;,0,0,0,0,0
+settings.lightMax = 80;,0,0,0,0,0
+settings.lightOnHour = 6;,0,0,0,0,0
+settings.lightOnMinute = 0;,0,0,0,0,0
+settings.lightOffHour = 20;,0,0,0,0,0
+settings.lightOffMinute = 0;,0,0,0,0,0
+settings.dataloggingEnabled = true;,0,0,0,0,0
+settings.loggingInterval = 60;,0,0,0,0,0
+"EEPROM.get(0, settings);",0,0,1,0,1
+void createLogFile() {,0,0,0,0,0
+if (!settings.dataloggingEnabled) return;,0,0,0,0,0
+"sprintf(filename, ""%02d%02d%02d.csv"", now.year() % 100, now.month(), now.day());",0,0,0,0,0
+if (!SD.exists(filename)) {,0,0,0,0,0
+"dataFile = SD.open(filename, FILE_WRITE);",1,0,0,0,1
+if (dataFile) {,0,0,0,0,0
+"dataFile.println(""Date,Time,Temperature,Humidity,Moisture,Light,Pump,Fan,Heater,Light"");",0,0,0,0,0
+dataFile.close();,0,0,0,0,0
+void logData() {,0,0,0,0,0
+char buffer[100];,0,0,0,0,0
+"sprintf(buffer, ""%02d/%02d/%04d,%02d:%02d:%02d,%.1f,%.1f,%d,%d,%s,%s,%s,%s"",",0,0,0,0,0
+"now.day(), now.month(), now.year(),",0,0,0,0,0
+"now.hour(), now.minute(), now.second(),",0,0,0,0,0
+"currentTemp, currentHumidity, currentMoisture, currentLight,",0,0,0,0,0
+"isWatering ? ""ON"" : ""OFF"",",0,0,0,0,0
+"fanOn ? ""ON"" : ""OFF"",",0,0,0,0,0
+"heaterOn ? ""ON"" : ""OFF"",",0,0,0,0,0
+"lightOn ? ""ON"" : ""OFF"");",0,0,0,0,0
+dataFile.println(buffer);,0,0,0,0,0
+int board[3][3];,0,0,0,0,0
+void initializeBoard() {,0,0,0,0,0
+for (int i = 0; i < 3; i++),0,0,1,1,2
+for (int j = 0; j < 3; j++),0,0,1,1,2
+board[i][j] = ' ';,0,0,0,0,0
+void printBoard() {,0,0,0,0,0
+"printf("" %c | %c | %c\n"", board[0][0], board[0][1], board[0][2]);",0,0,0,1,1
+"printf(""---|---|---\n"");",0,0,0,1,1
+"printf("" %c | %c | %c\n"", board[1][0], board[1][1], board[1][2]);",0,0,0,1,1
+"printf("" %c | %c | %c\n"", board[2][0], board[2][1], board[2][2]);",0,0,0,1,1
+int checkWinner() {,0,1,0,0,1
+for (int i = 0; i < 3; i++) {,0,0,1,1,2
+if (board[i][0] != ' ' && board[i][0] == board[i][1] && board[i][1] == board[i][2]),0,0,0,0,0
+return board[i][0];,0,0,1,0,1
+if (board[0][i] != ' ' && board[0][i] == board[1][i] && board[1][i] == board[2][i]),0,0,0,0,0
+return board[0][i];,0,0,1,0,1
+if (board[0][0] != ' ' && board[0][0] == board[1][1] && board[1][1] == board[2][2]),0,0,0,0,0
+return board[0][0];,0,0,1,0,1
+if (board[0][2] != ' ' && board[0][2] == board[1][1] && board[1][1] == board[2][0]),0,0,0,0,0
+return board[0][2];,0,0,1,0,1
+int isFull() {,0,1,0,0,1
+if (board[i][j] == ' '),0,0,0,0,0
+return 1;,0,0,0,0,0
+void playerMove(int player) {,1,0,0,0,1
+"int row = 0, col = 0;",0,0,0,2,2
+"printf(""Player %d turn. Enter row and column (0 1 2):\n"", player);",0,0,0,0,0
+"scanf(""%d%d"", &row, &col);",0,0,2,0,2
+while (row < 0 || row > 2 || col < 0 || col > 2 || board[row][col] != ' ') {,0,0,4,0,4
+"printf(""Invalid move. Try again:\n"");",0,0,0,1,1
+board[row][col] = player == 1 ? 'X' : 'O';,0,0,1,0,1
+void computerMove(int player) {,1,0,0,0,1
+"int r = 0, c = 0;",0,0,0,2,2
+srand(time(NULL));,0,0,0,0,0
+do {,0,0,0,0,0
+r = rand() % 3;,0,0,0,0,0
+c = rand() % 3;,0,0,0,0,0
+} while (board[r][c] != ' ');,0,0,0,0,0
+board[r][c] = player == 1 ? 'X' : 'O';,0,0,1,0,1
+"printf(""Computer played at %d %d\n"", r, c);",0,0,0,1,1
+void ticTacToe(int mode) {,1,0,0,0,1
+initializeBoard();,0,0,0,0,0
+int turn = 1;,0,0,0,1,1
+printBoard();,0,0,0,0,0
+while (!checkWinner() && !isFull()) {,0,0,0,0,0
+if (mode == 1 || (mode == 2 && turn == 1)),0,0,3,0,3
+playerMove(turn);,0,0,0,0,0
+computerMove(turn);,0,0,0,0,0
+if (checkWinner()) {,0,0,0,0,0
+"printf(""Player %d wins!\n"", turn);",0,0,0,1,1
+turn = 3 - turn;,0,0,1,1,2
+"printf(""It's a draw!\n"");",0,0,0,1,1
+void gameMenu() {,0,0,0,0,0
+int choice = 0;,0,0,0,1,1
+while (1) {,0,0,0,0,0
+"printf(""Choose a game:\n"");",0,0,0,1,1
+"printf(""1. Tic Tac Toe (2 Players)\n"");",0,0,0,0,0
+"printf(""2. Tic Tac Toe (vs Computer)\n"");",0,0,0,0,0
+"printf(""3. Snake (Coming Soon)\n"");",0,0,0,0,0
+"printf(""4. Exit\n"");",0,0,0,1,1
+"scanf(""%d"", &choice);",0,0,1,0,1
+if (choice == 1),0,0,1,0,1
+ticTacToe(1);,0,0,0,0,0
+else if (choice == 2),0,0,1,0,1
+ticTacToe(2);,0,0,0,0,0
+else if (choice == 3),0,0,1,0,1
+"printf(""Snake not implemented yet.\n"");",0,0,0,1,1
+else if (choice == 4),0,0,1,0,1
+"printf(""Invalid choice.\n"");",0,0,0,1,1
+gameMenu();,0,0,0,0,0
+int snakeX[MAX_SNAKE_SIZE];,0,0,0,0,0
+int snakeY[MAX_SNAKE_SIZE];,0,0,0,0,0
+"int foodX = 0, foodY = 0;",0,0,0,2,2
+int length = 5;,0,0,0,1,1
+int dir = 0;,0,0,0,1,1
+int gameOver = 0;,0,0,0,1,1
+"void gotoxy(int x, int y) {",2,0,0,0,2
+COORD coord;,0,0,0,0,0
+coord.X = x;,0,0,1,1,2
+coord.Y = y;,0,0,1,1,2
+"SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);",0,0,0,0,0
+void generateFood() {,0,0,0,0,0
+foodX = rand() % WIDTH;,0,0,0,0,0
+foodY = rand() % HEIGHT;,0,0,0,0,0
+void drawBoard() {,0,0,0,0,0
+"system(""cls"");",0,0,0,0,0
+for (int i = 0; i <= WIDTH + 1; i++),0,0,2,1,3
+"printf(""#"");",0,0,0,1,1
+"printf(""\n"");",0,0,0,1,1
+for (int i = 0; i < HEIGHT; i++) {,0,0,2,1,3
+for (int j = 0; j < WIDTH; j++) {,0,0,2,1,3
+int isSnake = 0;,0,0,0,1,1
+for (int k = 0; k < length; k++),0,0,2,1,3
+if (snakeX[k] == j && snakeY[k] == i),0,0,0,0,0
+isSnake = 1;,0,0,0,1,1
+if (isSnake),0,0,0,0,0
+"printf(""O"");",0,0,0,1,1
+else if (j == foodX && i == foodY),0,0,4,0,4
+"printf(""F"");",0,0,0,1,1
+"printf("" "");",0,0,0,1,1
+"printf(""#\n"");",0,0,0,1,1
+void input() {,0,0,0,0,0
+if (_kbhit()) {,0,0,0,0,0
+switch (_getch()) {,0,0,0,0,0
+case 'w':,0,0,0,0,0
+if (dir != 1) dir = 0;,0,0,1,1,2
+case 's':,0,0,0,0,0
+if (dir != 0) dir = 1;,0,0,1,1,2
+case 'a':,0,0,0,0,0
+if (dir != 3) dir = 2;,0,0,1,1,2
+case 'd':,0,0,0,0,0
+if (dir != 2) dir = 3;,0,0,1,1,2
+void logic() {,0,0,0,0,0
+for (int i = length - 1; i > 0; i--) {,0,0,1,1,2
+snakeX[i] = snakeX[i - 1];,0,0,0,0,0
+snakeY[i] = snakeY[i - 1];,0,0,0,0,0
+if (dir == 0),0,0,1,0,1
+snakeY[0]--;,0,0,0,0,0
+else if (dir == 1),0,0,1,0,1
+snakeY[0]++;,0,0,0,0,0
+else if (dir == 2),0,0,1,0,1
+snakeX[0]--;,0,0,0,0,0
+else if (dir == 3),0,0,1,0,1
+snakeX[0]++;,0,0,0,0,0
+if (snakeX[0] < 0 || snakeX[0] >= WIDTH || snakeY[0] < 0 || snakeY[0] >= HEIGHT),0,0,0,0,0
+gameOver = 1;,0,0,0,1,1
+for (int i = 1; i < length; i++),0,0,2,1,3
+if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]),0,0,0,0,0
+if (snakeX[0] == foodX && snakeY[0] == foodY) {,0,0,0,0,0
+length++;,0,0,1,1,2
+generateFood();,0,0,0,0,0
+void snakeGame() {,0,0,0,0,0
+srand(time(0));,0,0,0,0,0
+length = 5;,0,0,0,1,1
+dir = 3;,0,0,0,1,1
+gameOver = 0;,0,0,0,1,1
+for (int i = 0; i < length; i++) {,0,0,2,1,3
+snakeX[i] = length - i;,0,0,0,0,0
+snakeY[i] = 0;,0,0,0,0,0
+while (!gameOver) {,0,0,0,0,0
+drawBoard();,0,0,0,0,0
+input();,0,0,0,0,0
+logic();,0,0,0,0,0
+Sleep(100);,0,0,0,0,0
+"printf(""Game Over!\n"");",0,0,0,1,1
+void numberGuessingGame() {,0,0,0,0,0
+"int number, guess, attempts = 0;",0,0,0,1,1
+number = rand() % 100 + 1;,0,0,1,1,2
+"printf(""Guess a number between 1 and 100\n"");",0,0,0,1,1
+"printf(""Enter your guess: "");",0,0,0,1,1
+"scanf(""%d"", &guess);",0,0,1,0,1
+attempts++;,0,0,1,1,2
+if (guess > number),0,0,2,0,2
+"printf(""Too high!\n"");",0,0,0,1,1
+else if (guess < number),0,0,2,0,2
+"printf(""Too low!\n"");",0,0,0,1,1
+"printf(""Correct! You guessed it in %d attempts.\n"", attempts);",0,0,0,1,1
+} while (guess != number);,0,0,2,0,2
+int memoryGrid[ROWS][COLS];,0,0,0,0,0
+int revealed[ROWS][COLS];,0,0,0,0,0
+"void shuffle(int arr[], int size) {",2,0,0,0,2
+for (int i = 0; i < size - 1; i++) {,0,0,2,1,3
+int j = i + rand() / (RAND_MAX / (size - i) + 1);,0,0,0,1,1
+int t = arr[j];,0,0,0,1,1
+arr[j] = arr[i];,0,0,0,0,0
+arr[i] = t;,0,0,0,0,0
+void initializeMemoryGame() {,0,0,0,0,0
+int values[ROWS * COLS];,0,0,0,0,0
+for (int i = 0; i < ROWS * COLS / 2; i++) {,0,0,2,1,3
+values[2 * i] = i + 1;,0,0,0,0,0
+values[2 * i + 1] = i + 1;,0,0,0,0,0
+"shuffle(values, ROWS * COLS);",0,0,0,0,0
+for (int i = 0; i < ROWS; i++),0,0,2,1,3
+for (int j = 0; j < COLS; j++) {,0,0,2,1,3
+memoryGrid[i][j] = values[i * COLS + j];,0,0,0,0,0
+revealed[i][j] = 0;,0,0,0,0,0
+void printMemoryGrid() {,0,0,0,0,0
+"printf(""\nMemory Grid:\n"");",0,0,0,1,1
+for (int i = 0; i < ROWS; i++) {,0,0,2,1,3
+if (revealed[i][j]),0,0,0,0,0
+"printf("" %d "", memoryGrid[i][j]);",0,0,0,1,1
+"printf("" * "");",0,0,0,1,1
+void memoryGame() {,0,0,0,0,0
+initializeMemoryGame();,0,0,0,0,0
+"int x1, y1, x2, y2;",0,0,0,0,0
+int matchedPairs = 0;,0,0,0,1,1
+while (matchedPairs < ROWS * COLS / 2) {,0,0,2,0,2
+printMemoryGrid();,0,0,0,0,0
+"printf(""Enter first card (row and column): "");",0,0,0,0,0
+"scanf(""%d%d"", &x1, &y1);",0,0,2,0,2
+"printf(""Enter second card (row and column): "");",0,0,0,0,0
+"scanf(""%d%d"", &x2, &y2);",0,0,2,0,2
+if (x1 == x2 && y1 == y2) {,0,0,4,0,4
+"printf(""Cannot pick the same card twice.\n"");",0,0,0,1,1
+continue;,0,0,0,0,0
+revealed[x1][y1] = 1;,0,0,0,0,0
+revealed[x2][y2] = 1;,0,0,0,0,0
+if (memoryGrid[x1][y1] == memoryGrid[x2][y2]) {,0,0,0,0,0
+"printf(""Match found!\n"");",0,0,0,1,1
+matchedPairs++;,0,0,1,1,2
+"printf(""Not a match.\n"");",0,0,0,1,1
+revealed[x1][y1] = 0;,0,0,0,0,0
+revealed[x2][y2] = 0;,0,0,0,0,0
+"printf(""You matched all pairs!\n"");",0,0,0,1,1
+"printf(""\n==== CLI Game Hub ===\n"");",0,0,0,1,1
+"printf(""1. Tic Tac Toe (2 Player)\n"");",0,0,0,0,0
+"printf(""3. Snake Game\n"");",0,0,0,1,1
+"printf(""4. Number Guessing Game\n"");",0,0,0,1,1
+"printf(""5. Memory Matching Game\n"");",0,0,0,1,1
+"printf(""6. Exit\n"");",0,0,0,1,1
+"printf(""Enter your choice: "");",0,0,0,1,1
+tictactoe_2p();,0,0,0,0,0
+tictactoe_cpu();,0,0,0,0,0
+snakeGame();,0,0,0,0,0
+numberGuessingGame();,0,0,0,0,0
+else if (choice == 5),0,0,1,0,1
+memoryGame();,0,0,0,0,0
+} while (choice != 6);,0,0,1,0,1
+/* Global Data Structures */,0,0,0,0,0
+struct Transaction {,0,0,0,0,0
+int id;,0,0,0,0,0
+char date[MAX_DATE_LENGTH];,0,0,0,0,0
+char category[MAX_NAME_LENGTH];,0,0,0,0,0
+char description[MAX_DESC_LENGTH];,0,0,0,0,0
+float amount;,0,0,0,0,0
+int isExpense;,0,0,0,0,0
+int accountId;,0,0,0,0,0
+struct Category {,0,0,0,0,0
+char name[MAX_NAME_LENGTH];,0,0,0,0,0
+int isExpenseCategory;,0,0,0,0,0
+float totalAmount;,0,0,0,0,0
+struct Budget {,0,0,0,0,0
+float limit;,0,0,0,0,0
+float spent;,0,0,0,0,0
+char startDate[MAX_DATE_LENGTH];,0,0,0,0,0
+char endDate[MAX_DATE_LENGTH];,0,0,0,0,0
+struct Account {,0,0,0,0,0
+float balance;,0,0,0,0,0
+char currency[4];,0,0,0,0,0
+struct Report {,0,0,0,0,0
+char type[MAX_NAME_LENGTH];,0,0,0,0,0
+struct Goal {,0,0,0,0,0
+float targetAmount;,0,0,0,0,0
+float currentAmount;,0,0,0,0,0
+char deadline[MAX_DATE_LENGTH];,0,0,0,0,0
+struct User {,0,0,0,0,0
+char username[MAX_NAME_LENGTH];,0,0,0,0,0
+char password[MAX_PASSWORD_LENGTH];,0,0,0,0,0
+int isAdmin;,0,0,0,0,0
+/* Global Variables */,0,0,0,0,0
+struct Transaction transactions[MAX_TRANSACTIONS];,0,0,0,0,0
+struct Category categories[MAX_CATEGORIES];,0,0,0,0,0
+struct Budget budgets[MAX_BUDGETS];,0,0,0,0,0
+struct Account accounts[MAX_ACCOUNTS];,0,0,0,0,0
+struct Report reports[MAX_REPORTS];,0,0,0,0,0
+struct Goal goals[MAX_GOALS];,0,0,0,0,0
+struct User users[MAX_USERS];,0,0,0,0,0
+int transactionCount = 0;,0,0,0,1,1
+int categoryCount = 0;,0,0,0,1,1
+int budgetCount = 0;,0,0,0,1,1
+int accountCount = 0;,0,0,0,1,1
+int reportCount = 0;,0,0,0,1,1
+int goalCount = 0;,0,0,0,1,1
+int userCount = 0;,0,0,0,1,1
+int currentUserId = -1;,0,0,0,1,1
+/* Utility Functions */,0,0,0,0,0
+int generateId(int type) {,1,1,0,0,2
+time_t t;,0,0,0,0,0
+srand((unsigned) time(&t));,0,0,0,0,0
+return rand() % 10000 + type * 10000;,0,0,1,0,1
+int isValidDate(char date[]) {,1,1,0,0,2
+"int day, month, year;",0,0,0,0,0
+"int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};",0,0,0,0,0
+if (strlen(date) != 10) return 0;,0,0,0,0,0
+if (date[2] != '/' || date[5] != '/') return 0;,0,0,0,0,0
+day = (date[0] - '0') * 10 + (date[1] - '0');,0,0,1,1,2
+month = (date[3] - '0') * 10 + (date[4] - '0');,0,0,1,1,2
+year = (date[6] - '0') * 1000 + (date[7] - '0') * 100 + (date[8] - '0') * 10 + (date[9] - '0');,0,0,1,1,2
+if (month < 1 || month > 12) return 0;,0,0,2,0,2
+if (year < 2000 || year > 2100) return 0;,0,0,2,0,2
+if (month == 2 && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))),0,0,4,0,4
+daysInMonth[2] = 29;,0,0,0,0,0
+if (day < 1 || day > daysInMonth[month]) return 0;,0,0,3,0,3
+void getCurrentDate(char date[]) {,1,0,0,0,1
+time_t t = time(NULL);,0,0,0,0,0
+struct tm *tm = localtime(&t);,0,0,0,0,0
+"sprintf(date, ""%02d/%02d/%04d"", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900);",0,0,0,0,0
+"int daysDifference(char date1[], char date2[]) {",2,1,0,0,3
+"int d1, m1, y1, d2, m2, y2;",0,0,0,0,0
+"sscanf(date1, ""%d/%d/%d"", &d1, &m1, &y1);",0,0,0,0,0
+"sscanf(date2, ""%d/%d/%d"", &d2, &m2, &y2);",0,0,0,0,0
+int days1 = y1 * 365 + d1;,0,0,0,1,1
+int days2 = y2 * 365 + d2;,0,0,0,1,1
+for (int i = 1; i < m1; i++) {,0,0,2,1,3
+if (i == 2) days1 += 28;,0,0,2,1,3
+else if (i == 4 || i == 6 || i == 9 || i == 11) days1 += 30;,0,0,5,1,6
+else days1 += 31;,0,0,1,1,2
+for (int i = 1; i < m2; i++) {,0,0,2,1,3
+if (i == 2) days2 += 28;,0,0,2,1,3
+else if (i == 4 || i == 6 || i == 9 || i == 11) days2 += 30;,0,0,5,1,6
+else days2 += 31;,0,0,1,1,2
+return days2 - days1;,0,0,2,0,2
+"int compareDates(char date1[], char date2[]) {",2,1,0,0,3
+if (y1 < y2) return -1;,0,0,2,0,2
+if (y1 > y2) return 1;,0,0,2,0,2
+if (m1 < m2) return -1;,0,0,2,0,2
+if (m1 > m2) return 1;,0,0,2,0,2
+if (d1 < d2) return -1;,0,0,2,0,2
+if (d1 > d2) return 1;,0,0,2,0,2
+"float calculateTax(float amount, float rate) {",2,1,0,0,3
+return amount * rate / 100;,0,0,2,0,2
+void clearScreen() {,0,0,0,0,0
+int i;,0,0,0,0,0
+for (i = 0; i < 50; i++) {,0,0,1,1,2
+void pause() {,0,0,0,0,0
+"printf(""\nPress Enter to continue..."");",0,0,0,1,1
+getchar();,0,0,0,0,0
+int findAccountById(int id) {,1,1,0,0,2
+for (i = 0; i < accountCount; i++) {,0,0,2,1,3
+if (accounts[i].id == id) {,0,0,2,0,2
+return i;,0,0,1,0,1
+return -1;,0,0,0,0,0
+int findCategoryByName(char name[]) {,1,1,0,0,2
+for (i = 0; i < categoryCount; i++) {,0,0,2,1,3
+"if (strcmp(categories[i].name, name) == 0) {",0,0,0,0,0
+"float exchangeRate(char fromCurrency[], char toCurrency[]) {",2,1,0,0,3
+"if (strcmp(fromCurrency, toCurrency) == 0) {",0,0,0,0,0
+return 1.0;,0,0,0,0,0
+"if (strcmp(fromCurrency, ""USD"") == 0 && strcmp(toCurrency, ""EUR"") == 0) {",0,0,0,0,0
+return 0.85;,0,0,0,0,0
+"if (strcmp(fromCurrency, ""EUR"") == 0 && strcmp(toCurrency, ""USD"") == 0) {",0,0,0,0,0
+return 1.18;,0,0,0,0,0
+/* Account Management Functions */,0,0,0,0,0
+void initializeAccounts() {,0,0,0,0,0
+if (accountCount == 0) {,0,0,1,0,1
+accounts[0].id = generateId(1);,0,0,0,0,0
+"strcpy(accounts[0].name, ""Cash"");",0,0,0,0,0
+accounts[0].balance = 0.0;,0,0,0,1,1
+"strcpy(accounts[0].currency, ""USD"");",0,0,0,0,0
+accountCount = 1;,0,0,0,1,1
+void addAccount() {,0,0,0,0,0
+if (accountCount >= MAX_ACCOUNTS) {,0,0,2,0,2
+"printf(""Maximum number of accounts reached.\n"");",0,0,0,1,1
+struct Account newAccount;,0,0,0,0,0
+newAccount.id = generateId(1);,0,0,0,0,0
+"printf(""Enter account name: "");",0,0,0,1,1
+"scanf(""%s"", newAccount.name);",0,0,1,0,1
+"printf(""Enter initial balance: "");",0,0,0,1,1
+"scanf(""%f"", &newAccount.balance);",0,0,1,0,1
+"printf(""Enter currency (USD, EUR, etc.): "");",0,0,0,0,0
+"scanf(""%s"", newAccount.currency);",0,0,1,0,1
+accounts[accountCount] = newAccount;,0,0,0,0,0
+accountCount++;,0,0,1,1,2
+"printf(""Account added successfully with ID: %d\n"", newAccount.id);",0,0,0,1,1
+void listAccounts() {,0,0,0,0,0
+float totalBalance = 0.0;,0,0,0,1,1
+"printf(""\n=== Accounts ===\n"");",0,0,0,1,1
+"printf(""%-5s %-20s %-15s %s\n"", ""ID"", ""Name"", ""Balance"", ""Currency"");",0,0,0,1,1
+"printf(""----------------------------------------\n"");",0,0,0,1,1
+"printf(""%-5d %-20s %-15.2f %s\n"",",0,0,0,0,0
+"accounts[i].id,",0,0,0,0,0
+"accounts[i].name,",0,0,0,0,0
+"accounts[i].balance,",0,0,0,0,0
+accounts[i].currency);,0,0,0,0,0
+totalBalance += accounts[i].balance;,0,0,1,1,2
+"printf(""Total Balance: %.2f\n"", totalBalance);",0,0,0,1,1
+void updateAccount() {,0,0,0,0,0
+"int accountId, index;",0,0,0,0,0
+listAccounts();,0,0,0,0,0
+"printf(""Enter account ID to update: "");",0,0,0,1,1
+"scanf(""%d"", &accountId);",0,0,1,0,1
+index = findAccountById(accountId);,0,0,0,0,0
+if (index == -1) {,0,0,0,0,0
+"printf(""Account not found.\n"");",0,0,0,1,1
+"printf(""Enter new name (current: %s): "", accounts[index].name);",0,0,0,0,0
+"scanf(""%s"", accounts[index].name);",0,0,1,0,1
+"printf(""Enter new balance (current: %.2f): "", accounts[index].balance);",0,0,0,0,0
+"scanf(""%f"", &accounts[index].balance);",0,0,1,0,1
+"printf(""Enter new currency (current: %s): "", accounts[index].currency);",0,0,0,0,0
+"scanf(""%s"", accounts[index].currency);",0,0,1,0,1
+"printf(""Account updated successfully.\n"");",0,0,0,1,1
+void transferBetweenAccounts() {,0,0,0,0,0
+"int fromId, toId, fromIndex, toIndex;",0,0,0,0,0
+"float amount, convertedAmount;",0,0,0,0,0
+"printf(""Enter source account ID: "");",0,0,0,1,1
+"scanf(""%d"", &fromId);",0,0,1,0,1
+fromIndex = findAccountById(fromId);,0,0,0,0,0
+if (fromIndex == -1) {,0,0,0,0,0
+"printf(""Source account not found.\n"");",0,0,0,1,1
+"printf(""Enter destination account ID: "");",0,0,0,1,1
+"scanf(""%d"", &toId);",0,0,1,0,1
+toIndex = findAccountById(toId);,0,0,0,0,0
+if (toIndex == -1) {,0,0,0,0,0
+"printf(""Destination account not found.\n"");",0,0,0,1,1
+"printf(""Enter amount to transfer: "");",0,0,0,1,1
+"scanf(""%f"", &amount);",0,0,1,0,1
+if (amount <= 0) {,0,0,1,0,1
+"printf(""Amount must be positive.\n"");",0,0,0,1,1
+if (accounts[fromIndex].balance < amount) {,0,0,2,0,2
+"printf(""Insufficient balance in source account.\n"");",0,0,0,1,1
+"convertedAmount = amount * exchangeRate(accounts[fromIndex].currency, accounts[toIndex].currency);",0,0,1,1,2
+accounts[fromIndex].balance -= amount;,0,0,1,1,2
+accounts[toIndex].balance += convertedAmount;,0,0,1,1,2
+"printf(""Transfer successful. Converted amount: %.2f %s\n"",",0,0,0,0,0
+"convertedAmount, accounts[toIndex].currency);",0,0,0,0,0
+/* Category Management Functions */,0,0,0,0,0
+void initializeCategories() {,0,0,0,0,0
+if (categoryCount == 0) {,0,0,1,0,1
+"strcpy(categories[0].name, ""Food"");",0,0,0,0,0
+categories[0].id = generateId(2);,0,0,0,0,0
+categories[0].isExpenseCategory = 1;,0,0,0,1,1
+categories[0].totalAmount = 0.0;,0,0,0,1,1
+"strcpy(categories[1].name, ""Transport"");",0,0,0,0,0
+categories[1].id = generateId(2);,0,0,0,0,0
+categories[1].isExpenseCategory = 1;,0,0,0,1,1
+categories[1].totalAmount = 0.0;,0,0,0,1,1
+"strcpy(categories[2].name, ""Housing"");",0,0,0,0,0
+categories[2].id = generateId(2);,0,0,0,0,0
+categories[2].isExpenseCategory = 1;,0,0,0,1,1
+categories[2].totalAmount = 0.0;,0,0,0,1,1
+"strcpy(categories[3].name, ""Salary"");",0,0,0,0,0
+categories[3].id = generateId(2);,0,0,0,0,0
+categories[3].isExpenseCategory = 0;,0,0,0,1,1
+categories[3].totalAmount = 0.0;,0,0,0,1,1
+categoryCount = 4;,0,0,0,1,1
+void addCategory() {,0,0,0,0,0
+if (categoryCount >= MAX_CATEGORIES) {,0,0,2,0,2
+"printf(""Maximum number of categories reached.\n"");",0,0,0,1,1
+struct Category newCategory;,0,0,0,0,0
+newCategory.id = generateId(2);,0,0,0,0,0
+"printf(""Enter category name: "");",0,0,0,1,1
+"scanf(""%s"", newCategory.name);",0,0,1,0,1
+if (findCategoryByName(newCategory.name) != -1) {,0,0,0,0,0
+"printf(""Category already exists.\n"");",0,0,0,1,1
+"printf(""Is this an expense category? (1 for Yes, 0 for No): "");",0,0,0,0,0
+"scanf(""%d"", &newCategory.isExpenseCategory);",0,0,1,0,1
+newCategory.totalAmount = 0.0;,0,0,0,1,1
+categories[categoryCount] = newCategory;,0,0,0,0,0
+categoryCount++;,0,0,1,1,2
+"printf(""Category added successfully.\n"");",0,0,0,1,1
+void listCategories() {,0,0,0,0,0
+"printf(""\n=== Categories ===\n"");",0,0,0,1,1
+"printf(""%-5s %-20s %-15s %s\n"", ""ID"", ""Name"", ""Type"", ""Total Amount"");",0,0,0,1,1
+"printf(""---------------------------------------------\n"");",0,0,0,1,1
+"printf(""%-5d %-20s %-15s %.2f\n"",",0,0,0,0,0
+"categories[i].id,",0,0,0,0,0
+"categories[i].name,",0,0,0,0,0
+"categories[i].isExpenseCategory ? ""Expense"" : ""Income"",",0,0,0,0,0
+categories[i].totalAmount);,0,0,0,0,0
+void updateCategoryTotals() {,0,0,0,0,0
+"int i, j;",0,0,0,0,0
+categories[i].totalAmount = 0.0;,0,0,0,1,1
+for (i = 0; i < transactionCount; i++) {,0,0,2,1,3
+for (j = 0; j < categoryCount; j++) {,0,0,2,1,3
+"if (strcmp(transactions[i].category, categories[j].name) == 0) {",0,0,0,0,0
+categories[j].totalAmount += transactions[i].amount;,0,0,1,1,2
+/* Transaction Management Functions */,0,0,0,0,0
+void addTransaction() {,0,0,0,0,0
+if (transactionCount >= MAX_TRANSACTIONS) {,0,0,2,0,2
+"printf(""Maximum number of transactions reached.\n"");",0,0,0,1,1
+struct Transaction newTransaction;,0,0,0,0,0
+newTransaction.id = generateId(3);,0,0,0,0,0
+"int accountIndex, categoryIndex;",0,0,0,0,0
+"printf(""Enter date (DD/MM/YYYY): "");",0,0,0,0,0
+"scanf(""%s"", newTransaction.date);",0,0,1,0,1
+if (!isValidDate(newTransaction.date)) {,0,0,0,0,0
+"printf(""Invalid date format. Please use DD/MM/YYYY.\n"");",0,0,0,1,1
+listCategories();,0,0,0,0,0
+"scanf(""%s"", newTransaction.category);",0,0,1,0,1
+categoryIndex = findCategoryByName(newTransaction.category);,0,0,0,0,0
+if (categoryIndex == -1) {,0,0,0,0,0
+"printf(""Category not found. Please add the category first.\n"");",0,0,0,1,1
+newTransaction.isExpense = categories[categoryIndex].isExpenseCategory;,0,0,0,0,0
+"printf(""Enter description: "");",0,0,0,1,1
+"scanf("" %[^\n]"", newTransaction.description);",0,0,0,0,0
+"printf(""Enter amount: "");",0,0,0,1,1
+"scanf(""%f"", &newTransaction.amount);",0,0,1,0,1
+if (newTransaction.amount <= 0) {,0,0,1,0,1
+"printf(""Enter account ID: "");",0,0,0,1,1
+"scanf(""%d"", &newTransaction.accountId);",0,0,1,0,1
+accountIndex = findAccountById(newTransaction.accountId);,0,0,0,0,0
+if (accountIndex == -1) {,0,0,0,0,0
+if (newTransaction.isExpense) {,0,0,0,0,0
+if (accounts[accountIndex].balance < newTransaction.amount) {,0,0,2,0,2
+"printf(""Warning: This transaction will overdraw your account.\n"");",0,0,0,1,1
+"printf(""Do you want to continue? (1 for Yes, 0 for No): "");",0,0,0,0,0
+int confirm;,0,0,0,0,0
+"scanf(""%d"", &confirm);",0,0,1,0,1
+if (!confirm) return;,0,0,0,0,0
+accounts[accountIndex].balance -= newTransaction.amount;,0,0,1,1,2
+accounts[accountIndex].balance += newTransaction.amount;,0,0,1,1,2
+transactions[transactionCount] = newTransaction;,0,0,0,0,0
+transactionCount++;,0,0,1,1,2
+updateCategoryTotals();,0,0,0,0,0
+"printf(""Transaction added successfully.\n"");",0,0,0,1,1
+void listTransactions() {,0,0,0,0,0
+"char startDate[MAX_DATE_LENGTH], endDate[MAX_DATE_LENGTH];",0,0,0,0,0
+char currentDate[MAX_DATE_LENGTH];,0,0,0,0,0
+getCurrentDate(currentDate);,0,0,0,0,0
+"printf(""Enter start date (DD/MM/YYYY) or leave empty for all: "");",0,0,0,0,0
+"if (fgets(startDate, MAX_DATE_LENGTH, stdin) == NULL || startDate[0] == '\n') {",0,0,0,0,0
+"strcpy(startDate, ""01/01/2000"");",0,0,0,0,0
+"startDate[strcspn(startDate, ""\n"")] = 0;",0,0,0,0,0
+"printf(""Enter end date (DD/MM/YYYY) or leave empty for today: "");",0,0,0,0,0
+"if (fgets(endDate, MAX_DATE_LENGTH, stdin) == NULL || endDate[0] == '\n') {",0,0,0,0,0
+"strcpy(endDate, currentDate);",0,0,0,0,0
+"endDate[strcspn(endDate, ""\n"")] = 0;",0,0,0,0,0
+"printf(""\n=== Transactions ===\n"");",0,0,0,1,1
+"printf(""%-5s %-12s %-15s %-30s %-10s %-7s %-5s\n"",",0,0,0,0,0
+"""ID"", ""Date"", ""Category"", ""Description"", ""Amount"", ""Type"", ""Acct"");",0,0,0,0,0
+"printf(""------------------------------------------------------------------------------\n"");",0,0,0,1,1
+"if (compareDates(transactions[i].date, startDate) >= 0 &&",0,0,0,0,0
+"compareDates(transactions[i].date, endDate) <= 0) {",0,0,0,0,0
+"printf(""%-5d %-12s %-15s %-30s %-10.2f %-7s %-5d\n"",",0,0,0,0,0
+"transactions[i].id,",0,0,0,0,0
+"transactions[i].date,",0,0,0,0,0
+"transactions[i].category,",0,0,0,0,0
+"transactions[i].description,",0,0,0,0,0
+"transactions[i].amount,",0,0,0,0,0
+"transactions[i].isExpense ? ""Expense"" : ""Income"",",0,0,0,0,0
+transactions[i].accountId);,0,0,0,0,0
+void deleteTransaction() {,0,0,0,0,0
+"int id, i, found = 0;",0,0,0,1,1
+listTransactions();,0,0,0,0,0
+"printf(""Enter transaction ID to delete: "");",0,0,0,1,1
+"scanf(""%d"", &id);",0,0,1,0,1
+if (transactions[i].id == id) {,0,0,2,0,2
+found = 1;,0,0,0,1,1
+int accountIndex = findAccountById(transactions[i].accountId);,0,0,0,1,1
+if (accountIndex != -1) {,0,0,0,0,0
+if (transactions[i].isExpense) {,0,0,0,0,0
+accounts[accountIndex].balance += transactions[i].amount;,0,0,1,1,2
+accounts[accountIndex].balance -= transactions[i].amount;,0,0,1,1,2
+if (i < transactionCount - 1) {,0,0,2,0,2
+transactions[i] = transactions[transactionCount - 1];,0,0,0,0,0
+transactionCount--;,0,0,1,1,2
+"printf(""Transaction deleted successfully.\n"");",0,0,0,1,1
+if (!found) {,0,0,0,0,0
+"printf(""Transaction not found.\n"");",0,0,0,1,1
+void addBudget() {,0,0,0,0,0
+if (budgetCount >= MAX_BUDGETS) {,0,0,2,0,2
+"printf(""Maximum number of budgets reached.\n"");",0,0,0,1,1
+struct Budget newBudget;,0,0,0,0,0
+newBudget.id = generateId(4);,0,0,0,0,0
+"printf(""Enter category name for budget: "");",0,0,0,1,1
+"scanf(""%s"", newBudget.category);",0,0,1,0,1
+int categoryIndex = findCategoryByName(newBudget.category);,0,0,0,1,1
+if (categoryIndex == -1 || !categories[categoryIndex].isExpenseCategory) {,0,0,0,0,0
+"printf(""Invalid expense category.\n"");",0,0,0,1,1
+"printf(""Enter budget limit: "");",0,0,0,1,1
+"scanf(""%f"", &newBudget.limit);",0,0,1,0,1
+if (newBudget.limit <= 0) {,0,0,1,0,1
+"printf(""Budget limit must be positive.\n"");",0,0,0,1,1
+"printf(""Enter start date (DD/MM/YYYY): "");",0,0,0,0,0
+"scanf(""%s"", newBudget.startDate);",0,0,1,0,1
+if (!isValidDate(newBudget.startDate)) {,0,0,0,0,0
+"printf(""Enter end date (DD/MM/YYYY): "");",0,0,0,0,0
+"scanf(""%s"", newBudget.endDate);",0,0,1,0,1
+"if (!isValidDate(newBudget.endDate) || compareDates(newBudget.startDate, newBudget.endDate) > 0) {",0,0,0,0,0
+"printf(""Invalid end date.\n"");",0,0,0,1,1
+newBudget.spent = 0.0;,0,0,0,1,1
+budgets[budgetCount] = newBudget;,0,0,0,0,0
+budgetCount++;,0,0,1,1,2
+"printf(""Budget added successfully.\n"");",0,0,0,1,1
+void updateBudgetSpending() {,0,0,0,0,0
+for (i = 0; i < budgetCount; i++) {,0,0,2,1,3
+budgets[i].spent = 0.0;,0,0,0,1,1
+for (j = 0; j < transactionCount; j++) {,0,0,2,1,3
+if (transactions[j].isExpense &&,0,0,0,0,0
+"strcmp(transactions[j].category, budgets[i].category) == 0 &&",0,0,0,0,0
+"compareDates(transactions[j].date, budgets[i].startDate) >= 0 &&",0,0,0,0,0
+"compareDates(transactions[j].date, budgets[i].endDate) <= 0) {",0,0,0,0,0
+budgets[i].spent += transactions[j].amount;,0,0,1,1,2
+void listBudgets() {,0,0,0,0,0
+float percentage;,0,0,0,0,0
+updateBudgetSpending();,0,0,0,0,0
+"printf(""\n=== Budgets ===\n"");",0,0,0,1,1
+"printf(""%-5s %-15s %-10s %-10s %-12s %-12s %s\n"",",0,0,0,0,0
+"""ID"", ""Category"", ""Limit"", ""Spent"", ""Remaining"", ""Start Date"", ""End Date"");",0,0,0,0,0
+"printf(""------------------------------------------------------------------------\n"");",0,0,0,1,1
+percentage = (budgets[i].spent / budgets[i].limit) * 100;,0,0,1,1,2
+"printf(""%-5d %-15s %-10.2f %-10.2f %-12.2f %-12s %s"",",0,0,0,0,0
+"budgets[i].id,",0,0,0,0,0
+"budgets[i].category,",0,0,0,0,0
+"budgets[i].limit,",0,0,0,0,0
+"budgets[i].spent,",0,0,0,0,0
+"budgets[i].limit - budgets[i].spent,",0,0,0,0,0
+"budgets[i].startDate,",0,0,0,0,0
+budgets[i].endDate);,0,0,0,0,0
+"printf("" [%.1f%%]"", percentage);",0,0,0,1,1
+if (percentage >= 90) {,0,0,1,0,1
+"printf("" ⚠️"");",0,0,0,1,1
+/* Report Functions */,0,0,0,0,0
+void generateIncomeExpenseReport() {,0,0,0,0,0
+"float totalIncome = 0.0, totalExpense = 0.0;",0,0,0,2,2
+"scanf(""%s"", startDate);",0,0,1,0,1
+if (!isValidDate(startDate)) {,0,0,0,0,0
+"printf(""Invalid date format.\n"");",0,0,0,1,1
+"scanf(""%s"", endDate);",0,0,1,0,1
+"if (!isValidDate(endDate) || compareDates(startDate, endDate) > 0) {",0,0,0,0,0
+"printf(""\n=== Income and Expense Report (%s to %s) ===\n"", startDate, endDate);",0,0,0,0,0
+totalExpense += transactions[i].amount;,0,0,1,1,2
+totalIncome += transactions[i].amount;,0,0,1,1,2
+"printf(""Total Income: %.2f\n"", totalIncome);",0,0,0,1,1
+"printf(""Total Expenses: %.2f\n"", totalExpense);",0,0,0,1,1
+"printf(""Net: %.2f\n"", totalIncome - totalExpense);",0,0,0,1,1
+if (totalIncome > 0) {,0,0,1,0,1
+"printf(""Savings Rate: %.1f%%\n"", ((totalIncome - totalExpense) / totalIncome) * 100);",0,0,0,0,0
+void generateCategoryReport() {,0,0,0,0,0
+float categoryExpenses[MAX_CATEGORIES] = {0};,0,0,0,0,0
+float totalExpense = 0.0;,0,0,0,1,1
+"printf(""\n=== Category Expense Report (%s to %s) ===\n"", startDate, endDate);",0,0,0,0,0
+if (transactions[i].isExpense &&,0,0,0,0,0
+"compareDates(transactions[i].date, startDate) >= 0 &&",0,0,0,0,0
+categoryExpenses[j] += transactions[i].amount;,0,0,0,0,0
+"printf(""%-20s %-15s %s\n"", ""Category"", ""Amount"", ""Percentage"");",0,0,0,1,1
+"printf(""------------------------------------------\n"");",0,0,0,1,1
+if (categories[i].isExpenseCategory && categoryExpenses[i] > 0) {,0,0,0,0,0
+"printf(""%-20s %-15.2f %.1f%%\n"",",0,0,0,0,0
+"categoryExpenses[i],",0,0,0,0,0
+(totalExpense > 0) ? (categoryExpenses[i] / totalExpense) * 100 : 0);,0,0,1,0,1
+void generateTrendReport() {,0,0,0,0,0
+"int i, j, months = 6;",0,0,0,1,1
+float monthlyIncome[12] = {0};,0,0,0,0,0
+float monthlyExpense[12] = {0};,0,0,0,0,0
+"int currentMonth, currentYear, month, year;",0,0,0,0,0
+"sscanf(currentDate, ""%*d/%d/%d"", &currentMonth, &currentYear);",0,0,0,0,0
+"printf(""\n=== Monthly Trend Report (Last %d months) ===\n"", months);",0,0,0,0,0
+"printf(""%-10s %-15s %-15s %s\n"", ""Month"", ""Income"", ""Expense"", ""Net"");",0,0,0,1,1
+"printf(""--------------------------------------------------\n"");",0,0,0,1,1
+"sscanf(transactions[i].date, ""%*d/%d/%d"", &month, &year);",0,0,0,0,0
+if (year == currentYear && month <= currentMonth && month > currentMonth - months) {,0,0,6,0,6
+int monthIndex = (month - 1) % 12;,0,0,0,1,1
+monthlyExpense[monthIndex] += transactions[i].amount;,0,0,0,0,0
+monthlyIncome[monthIndex] += transactions[i].amount;,0,0,0,0,0
+for (j = 0; j < months; j++) {,0,0,2,1,3
+int monthIndex = (currentMonth - j - 1) % 12;,0,0,0,1,1
+if (monthIndex < 0) monthIndex += 12;,0,0,2,1,3
+char monthName[10];,0,0,0,0,0
+switch (monthIndex + 1) {,0,0,0,0,0
+"case 1: strcpy(monthName, ""January""); break;",0,0,0,0,0
+"case 2: strcpy(monthName, ""February""); break;",0,0,0,0,0
+"case 3: strcpy(monthName, ""March""); break;",0,0,0,0,0
+"case 4: strcpy(monthName, ""April""); break;",0,0,0,0,0
+"case 5: strcpy(monthName, ""May""); break;",0,0,0,0,0
+"case 6: strcpy(monthName, ""June""); break;",0,0,0,0,0
+"case 7: strcpy(monthName, ""July""); break;",0,0,0,0,0
+"case 8: strcpy(monthName, ""August""); break;",0,0,0,0,0
+"case 9: strcpy(monthName, ""September""); break;",0,0,0,0,0
+"case 10: strcpy(monthName, ""October""); break;",0,0,0,0,0
+"case 11: strcpy(monthName, ""November""); break;",0,0,0,0,0
+"case 12: strcpy(monthName, ""December""); break;",0,0,0,0,0
+"printf(""%-10s %-15.2f %-15.2f %.2f\n"",",0,0,0,0,0
+"monthName,",0,0,0,0,0
+"monthlyIncome[monthIndex],",0,0,0,0,0
+"monthlyExpense[monthIndex],",0,0,0,0,0
+monthlyIncome[monthIndex] - monthlyExpense[monthIndex]);,0,0,0,0,0
+void generateNetWorthReport() {,0,0,0,0,0
+"float totalAssets = 0.0, totalLiabilities = 0.0;",0,0,0,2,2
+"printf(""\n=== Net Worth Report ===\n"");",0,0,0,1,1
+"printf(""Assets:\n"");",0,0,0,1,1
+if (accounts[i].balance > 0) {,0,0,1,0,1
+"printf("" %s: %.2f %s\n"", accounts[i].name, accounts[i].balance, accounts[i].currency);",0,0,0,1,1
+totalAssets += accounts[i].balance;,0,0,1,1,2
+"printf(""\nLiabilities:\n"");",0,0,0,1,1
+typedef struct {,0,0,0,0,0
+int x;,0,0,0,0,0
+int y;,0,0,0,0,0
+} Point;,0,0,0,0,0
+Point position;,0,0,0,0,0
+Point body[100];,0,0,0,0,0
+int length;,0,0,0,0,0
+int direction;,0,0,0,0,0
+} Snake;,0,0,0,0,0
+} Food;,0,0,0,0,0
+void hideCursor() {,0,0,0,0,0
+CONSOLE_CURSOR_INFO cursor;,0,0,0,0,0
+cursor.dwSize = 100;,0,0,0,1,1
+cursor.bVisible = FALSE;,0,0,1,1,2
+"SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);",0,0,0,0,0
+void drawBorder() {,0,0,0,0,0
+int i = 0;,0,0,0,1,1
+for (i = 0; i <= WIDTH + 1; i++) {,0,0,2,1,3
+"gotoxy(i, 0);",0,0,0,0,0
+"gotoxy(i, HEIGHT + 1);",0,0,0,0,0
+for (i = 0; i <= HEIGHT + 1; i++) {,0,0,2,1,3
+"gotoxy(0, i);",0,0,0,0,0
+"gotoxy(WIDTH + 1, i);",0,0,0,0,0
+void initializeSnake(Snake *snake) {,1,0,0,0,1
+snake->position.x = WIDTH / 2;,0,0,1,1,2
+snake->position.y = HEIGHT / 2;,0,0,1,1,2
+snake->length = 1;,0,0,0,1,1
+snake->direction = 0;,0,0,0,1,1
+snake->body[0] = snake->position;,0,0,0,0,0
+"void generateFood(Food *food, Snake *snake) {",2,0,0,0,2
+int valid = 0;,0,0,0,1,1
+while (!valid) {,0,0,0,0,0
+food->position.x = rand() % WIDTH + 1;,0,0,1,1,2
+food->position.y = rand() % HEIGHT + 1;,0,0,1,1,2
+valid = 1;,0,0,0,1,1
+for (int i = 0; i < snake->length; i++) {,0,0,2,1,3
+if (food->position.x == snake->body[i].x && food->position.y == snake->body[i].y) {,0,0,4,0,4
+valid = 0;,0,0,0,1,1
+"gotoxy(food->position.x, food->position.y);",0,0,0,0,0
+"printf(""*"");",0,0,0,1,1
+void displaySnake(Snake *snake) {,1,0,0,0,1
+"gotoxy(snake->body[0].x, snake->body[0].y);",0,0,0,0,0
+for (i = 1; i < snake->length; i++) {,0,0,2,1,3
+"gotoxy(snake->body[i].x, snake->body[i].y);",0,0,0,0,0
+void clearSnakeTail(Snake *snake) {,1,0,0,0,1
+"gotoxy(snake->body[snake->length - 1].x, snake->body[snake->length - 1].y);",0,0,0,0,0
+void moveSnake(Snake *snake) {,1,0,0,0,1
+clearSnakeTail(snake);,0,0,0,0,0
+for (i = snake->length - 1; i > 0; i--) {,0,0,2,1,3
+snake->body[i] = snake->body[i - 1];,0,0,0,0,0
+switch (snake->direction) {,0,0,0,0,0
+snake->position.y--;,0,0,1,1,2
+snake->position.x++;,0,0,1,1,2
+snake->position.y++;,0,0,1,1,2
+snake->position.x--;,0,0,1,1,2
+int checkCollision(Snake *snake) {,1,1,0,0,2
+if (snake->position.x == 0 || snake->position.x == WIDTH + 1 ||,0,0,3,0,3
+snake->position.y == 0 || snake->position.y == HEIGHT + 1) {,0,0,3,0,3
+if (snake->position.x == snake->body[i].x &&,0,0,2,0,2
+snake->position.y == snake->body[i].y) {,0,0,2,0,2
+"int checkFoodCollision(Snake *snake, Food *food) {",2,1,0,0,3
+if (snake->position.x == food->position.x &&,0,0,2,0,2
+snake->position.y == food->position.y) {,0,0,2,0,2
+snake->length++;,0,0,1,1,2
+void displayScore(int score) {,1,0,0,0,1
+"gotoxy(0, HEIGHT + 3);",0,0,0,0,0
+"printf(""Score: %d"", score);",0,0,0,1,1
+int getUserInput() {,0,1,0,0,1
+case 'w': return 0;,0,0,0,0,0
+case 'd': return 1;,0,0,0,0,0
+case 's': return 2;,0,0,0,0,0
+case 'a': return 3;,0,0,0,0,0
+case 'x': return -1;,0,0,0,0,0
+return -2;,0,0,0,0,0
+hideCursor();,0,0,0,0,0
+Snake snake;,0,0,0,0,0
+Food food;,0,0,0,0,0
+int score = 0;,0,0,0,1,1
+int input;,0,0,0,0,0
+initializeSnake(&snake);,0,0,0,0,0
+drawBorder();,0,0,0,0,0
+"generateFood(&food, &snake);",0,0,0,0,0
+displaySnake(&snake);,0,0,0,0,0
+displayScore(score);,0,0,0,0,0
+input = getUserInput();,0,0,0,0,0
+if (input == -1),0,0,0,0,0
+else if (input >= 0),0,0,1,0,1
+snake.direction = input;,0,0,1,1,2
+moveSnake(&snake);,0,0,0,0,0
+if (checkCollision(&snake)) {,0,0,0,0,0
+"if (checkFoodCollision(&snake, &food)) {",0,0,0,0,0
+score += 10;,0,0,1,1,2
+"gotoxy(WIDTH / 2 - 5, HEIGHT / 2);",0,0,0,0,0
+"printf(""Game Over!"");",0,0,0,1,1
+"gotoxy(WIDTH / 2 - 9, HEIGHT / 2 + 1);",0,0,0,0,0
+"printf(""Your final score: %d"", score);",0,0,0,1,1
+"gotoxy(0, HEIGHT + 5);",0,0,0,0,0
+#include <OneWire.h>,0,0,0,0,0
+#include <DallasTemperature.h>,0,0,0,0,0
+#include <Servo.h>,0,0,0,0,0
+#include <RFID.h>,0,0,0,0,0
+#define MOTION_SENSOR_PIN 22,0,0,0,0,0
+#define LIGHT_SENSOR_PIN A0,0,0,0,0,0
+#define WATER_LEVEL_PIN A1,0,0,0,0,0
+#define SOIL_MOISTURE_PIN A2,0,0,0,0,0
+#define GAS_SENSOR_PIN A3,0,0,0,0,0
+#define FLAME_SENSOR_PIN A4,0,0,0,0,0
+#define SOUND_SENSOR_PIN A5,0,0,0,0,0
+#define DHT_SENSOR_PIN 24,0,0,0,0,0
+#define ONE_WIRE_BUS 26,0,0,0,0,0
+#define SERVO_PIN 28,0,0,0,0,0
+#define DOOR_SENSOR_PIN 30,0,0,0,0,0
+#define WATER_VALVE_PIN 32,0,0,0,0,0
+#define FAN_PIN 34,0,0,0,0,0
+#define HEATER_PIN 36,0,0,0,0,0
+#define WINDOW_MOTOR_PIN_1 38,0,0,0,0,0
+#define WINDOW_MOTOR_PIN_2 40,0,0,0,0,0
+#define BUZZER_PIN 42,0,0,0,0,0
+#define LED_RED_PIN 44,0,0,0,0,0
+#define LED_GREEN_PIN 46,0,0,0,0,0
+#define LED_BLUE_PIN 48,0,0,0,0,0
+#define RFID_SS_PIN 53,0,0,0,0,0
+#define RFID_RST_PIN 5,0,0,0,0,0
+#define PUMP_PIN 52,0,0,0,0,0
+#define RELAY_1 23,0,0,0,0,0
+#define RELAY_2 25,0,0,0,0,0
+#define RELAY_3 27,0,0,0,0,0
+#define RELAY_4 29,0,0,0,0,0
+#define TEMP_THRESHOLD_HIGH 28.0,0,0,0,0,0
+#define TEMP_THRESHOLD_LOW 18.0,0,0,0,0,0
+#define HUMID_THRESHOLD_HIGH 65.0,0,0,0,0,0
+#define HUMID_THRESHOLD_LOW 30.0,0,0,0,0,0
+#define LIGHT_THRESHOLD 500,0,0,0,0,0
+#define WATER_THRESHOLD 300,0,0,0,0,0
+#define MOISTURE_THRESHOLD 400,0,0,0,0,0
+#define GAS_THRESHOLD 600,0,0,0,0,0
+#define FLAME_THRESHOLD 100,0,0,0,0,0
+#define SOUND_THRESHOLD 700,0,0,0,0,0
+"DHT dht(DHT_SENSOR_PIN, DHT_TYPE);",0,0,0,0,0
+OneWire oneWire(ONE_WIRE_BUS);,0,0,0,0,0
+DallasTemperature tempSensors(&oneWire);,0,0,0,0,0
+Servo windowServo;,0,0,0,0,0
+"RFID rfid(RFID_SS_PIN, RFID_RST_PIN);",0,0,0,0,0
+unsigned long previousMillis = 0;,0,0,0,0,0
+unsigned long previousAlarmCheck = 0;,0,0,0,0,0
+unsigned long previousSensorRead = 0;,0,0,0,0,0
+unsigned long previousDisplayUpdate = 0;,0,0,0,0,0
+unsigned long previousDataLog = 0;,0,0,0,0,0
+unsigned long doorOpenTime = 0;,0,0,0,0,0
+const long interval = 1000;,0,0,0,0,0
+const long alarmInterval = 5000;,0,0,0,0,0
+const long sensorInterval = 2000;,0,0,0,0,0
+const long displayInterval = 3000;,0,0,0,0,0
+const long dataLogInterval = 60000;,0,0,0,0,0
+const long maxDoorOpenTime = 30000;,0,0,0,0,0
+float temperature = 0.0;,0,0,0,0,0
+float humidity = 0.0;,0,0,0,0,0
+float outdoorTemp = 0.0;,0,0,0,0,0
+int lightLevel = 0;,0,0,0,0,0
+int waterLevel = 0;,0,0,0,0,0
+int soilMoisture = 0;,0,0,0,0,0
+int gasLevel = 0;,0,0,0,0,0
+int flameLevel = 0;,0,0,0,0,0
+int soundLevel = 0;,0,0,0,0,0
+boolean motionDetected = false;,0,0,0,0,0
+boolean doorOpen = false;,0,0,0,0,0
+boolean alarmActive = false;,0,0,0,0,0
+boolean systemArmed = false;,0,0,0,0,0
+boolean lightsOn = false;,0,0,0,0,0
+boolean fanOn = false;,0,0,0,0,0
+boolean heaterOn = false;,0,0,0,0,0
+boolean windowOpen = false;,0,0,0,0,0
+boolean pumpOn = false;,0,0,0,0,0
+int displayMode = 0;,0,0,0,0,0
+const int DISPLAY_MODES = 5;,0,0,0,0,0
+byte authorizedTags[5][5] = {,0,0,0,0,0
+"{195, 87, 23, 169, 34},",0,0,0,0,0
+"{213, 64, 12, 156, 97},",0,0,0,0,0
+"{175, 42, 89, 134, 56},",0,0,0,0,0
+"{203, 18, 67, 192, 45},",0,0,0,0,0
+"{187, 93, 41, 221, 78}",0,0,0,0,0
+struct ScheduleItem {,0,0,0,0,0
+byte hour;,0,0,0,0,0
+byte minute;,0,0,0,0,0
+byte action;,0,0,0,0,0
+byte target;,0,0,0,0,0
+byte value;,0,0,0,0,0
+#define MAX_SCHEDULE_ITEMS 20,0,0,0,0,0
+ScheduleItem schedule[MAX_SCHEDULE_ITEMS];,0,0,0,0,0
+int scheduleCount = 0;,0,0,0,0,0
+struct LogEntry {,0,0,0,0,0
+unsigned long timestamp;,0,0,0,0,0
+byte sensorType;,0,0,0,0,0
+int sensorValue;,0,0,0,0,0
+#define LOG_SIZE 100,0,0,0,0,0
+LogEntry sensorLog[LOG_SIZE];,0,0,0,0,0
+int logIndex = 0;,0,0,0,0,0
+"lcd.begin(20, 4);",0,1,0,0,1
+tempSensors.begin();,0,1,0,0,1
+windowServo.attach(SERVO_PIN);,0,0,0,0,0
+SPI.begin();,0,1,0,0,1
+rfid.init();,0,0,0,0,0
+"Serial.println(""RTC not found"");",0,1,0,0,1
+"rtc.adjust(DateTime(2023, 1, 1, 12, 0, 0));",0,0,0,0,0
+"pinMode(MOTION_SENSOR_PIN, INPUT);",0,0,0,0,0
+"pinMode(DOOR_SENSOR_PIN, INPUT_PULLUP);",0,0,0,0,0
+"pinMode(WATER_VALVE_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(FAN_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(HEATER_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(WINDOW_MOTOR_PIN_1, OUTPUT);",0,0,0,0,0
+"pinMode(WINDOW_MOTOR_PIN_2, OUTPUT);",0,0,0,0,0
+"pinMode(LED_RED_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(LED_GREEN_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(LED_BLUE_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(PUMP_PIN, OUTPUT);",0,0,0,0,0
+"pinMode(RELAY_1, OUTPUT);",0,0,0,0,0
+"pinMode(RELAY_2, OUTPUT);",0,0,0,0,0
+"pinMode(RELAY_3, OUTPUT);",0,0,0,0,0
+"pinMode(RELAY_4, OUTPUT);",0,0,0,0,0
+"digitalWrite(WATER_VALVE_PIN, LOW);",0,1,0,0,1
+"digitalWrite(FAN_PIN, LOW);",0,1,0,0,1
+"digitalWrite(HEATER_PIN, LOW);",0,1,0,0,1
+"digitalWrite(WINDOW_MOTOR_PIN_1, LOW);",0,1,0,0,1
+"digitalWrite(WINDOW_MOTOR_PIN_2, LOW);",0,1,0,0,1
+"digitalWrite(BUZZER_PIN, LOW);",0,1,0,0,1
+"digitalWrite(LED_RED_PIN, LOW);",0,1,0,0,1
+"digitalWrite(LED_GREEN_PIN, LOW);",0,1,0,0,1
+"digitalWrite(LED_BLUE_PIN, LOW);",0,1,0,0,1
+"digitalWrite(PUMP_PIN, LOW);",0,1,0,0,1
+"digitalWrite(RELAY_1, HIGH);",0,1,0,0,1
+"digitalWrite(RELAY_2, HIGH);",0,1,0,0,1
+"digitalWrite(RELAY_3, HIGH);",0,1,0,0,1
+"digitalWrite(RELAY_4, HIGH);",0,1,0,0,1
+windowServo.write(0);,0,1,0,0,1
+loadScheduleFromEEPROM();,0,0,0,0,0
+welcomeMessage();,0,0,0,0,0
+checkRFIDAccess();,0,0,0,0,0
+processSerialCommands();,0,0,0,0,0
+if (currentMillis - previousSensorRead >= sensorInterval) {,0,0,0,0,0
+previousSensorRead = currentMillis;,0,0,0,0,0
+readAllSensors();,0,0,0,0,0
+checkEnvironmentConditions();,0,0,0,0,0
+if (currentMillis - previousDisplayUpdate >= displayInterval) {,0,0,0,0,0
+previousDisplayUpdate = currentMillis;,0,0,0,0,0
+if (currentMillis - previousAlarmCheck >= alarmInterval) {,0,0,0,0,0
+previousAlarmCheck = currentMillis;,0,0,0,0,0
+checkSecurity();,0,0,0,0,0
+checkScheduledTasks();,0,0,0,0,0
+if (currentMillis - previousDataLog >= dataLogInterval) {,0,0,0,0,0
+previousDataLog = currentMillis;,0,0,0,0,0
+logSensorData();,0,0,0,0,0
+if (doorOpen && (currentMillis - doorOpenTime >= maxDoorOpenTime)) {,0,0,0,0,0
+"triggerAlarm(""Door left open"");",0,0,0,0,0
+void readAllSensors() {,0,0,0,0,0
+temperature = dht.readTemperature();,1,0,0,0,1
+humidity = dht.readHumidity();,1,0,0,0,1
+tempSensors.requestTemperatures();,0,0,0,0,0
+outdoorTemp = tempSensors.getTempCByIndex(0);,1,0,0,0,1
+lightLevel = analogRead(LIGHT_SENSOR_PIN);,1,0,0,0,1
+waterLevel = analogRead(WATER_LEVEL_PIN);,1,0,0,0,1
+soilMoisture = analogRead(SOIL_MOISTURE_PIN);,1,0,0,0,1
+gasLevel = analogRead(GAS_SENSOR_PIN);,1,0,0,0,1
+flameLevel = analogRead(FLAME_SENSOR_PIN);,1,0,0,0,1
+soundLevel = analogRead(SOUND_SENSOR_PIN);,1,0,0,0,1
+motionDetected = digitalRead(MOTION_SENSOR_PIN);,1,0,0,0,1
+doorOpen = !digitalRead(DOOR_SENSOR_PIN);,1,0,0,0,1
+if (doorOpen && !digitalRead(DOOR_SENSOR_PIN)) {,1,0,0,0,1
+doorOpenTime = millis();,0,0,0,0,0
+switch (displayMode) {,0,0,0,0,0
+displayEnvironment();,0,0,0,0,0
+displaySecurity();,0,0,0,0,0
+displayWater();,0,0,0,0,0
+displaySystem();,0,0,0,0,0
+displayTime();,0,0,0,0,0
+displayMode = (displayMode + 1) % DISPLAY_MODES;,0,0,0,0,0
+void displayEnvironment() {,0,0,0,0,0
+"lcd.print(""Environment Status"");",0,1,0,0,1
+"lcd.print(""Temp: "");",0,1,0,0,1
+"lcd.print(""C Hum:"");",0,1,0,0,1
+lcd.print(humidity);,0,1,0,0,1
+"lcd.print(""%"");",0,1,0,0,1
+"lcd.print(""Out: "");",0,1,0,0,1
+lcd.print(outdoorTemp);,0,1,0,0,1
+"lcd.print(""C Light:"");",0,1,0,0,1
+lcd.print(lightLevel);,0,1,0,0,1
+"if (fanOn) lcd.print(""Fan:ON "");",0,1,0,0,1
+"else lcd.print(""Fan:OFF "");",0,1,0,0,1
+"if (heaterOn) lcd.print(""Heat:ON"");",0,1,0,0,1
+"else lcd.print(""Heat:OFF"");",0,1,0,0,1
+void displaySecurity() {,0,0,0,0,0
+"lcd.print(""Security Status"");",0,1,0,0,1
+"lcd.print(""Motion: "");",0,1,0,0,1
+"lcd.print(motionDetected ? ""DETECTED"" : ""None "");",0,1,0,0,1
+"lcd.print(""Door: "");",0,1,0,0,1
+"lcd.print(doorOpen ? ""OPEN"" : ""CLOSED"");",0,1,0,0,1
+"lcd.print("" Gas:"");",0,1,0,0,1
+lcd.print(gasLevel);,0,1,0,0,1
+"lcd.print(""System: "");",0,1,0,0,1
+"lcd.print(systemArmed ? ""ARMED"" : ""DISARMED"");",0,1,0,0,1
+void displayWater() {,0,0,0,0,0
+"lcd.print(""Water Systems"");",0,1,0,0,1
+"lcd.print(""Water lvl: "");",0,1,0,0,1
+lcd.print(waterLevel);,0,1,0,0,1
+"lcd.print(""Soil moist: "");",0,1,0,0,1
+lcd.print(soilMoisture);,0,1,0,0,1
+"lcd.print(""Pump: "");",0,1,0,0,1
+"lcd.print(pumpOn ? ""ON"" : ""OFF"");",0,1,0,0,1
+"lcd.print("" Valve:"");",0,1,0,0,1
+"lcd.print(digitalRead(WATER_VALVE_PIN) ? ""ON"" : ""OFF"");",1,1,0,0,2
+void displaySystem() {,0,0,0,0,0
+"lcd.print(""System Status"");",0,1,0,0,1
+"lcd.print(""Window: "");",0,1,0,0,1
+"lcd.print(windowOpen ? ""OPEN"" : ""CLOSED"");",0,1,0,0,1
+"lcd.print(""Lights: "");",0,1,0,0,1
+"lcd.print(lightsOn ? ""ON"" : ""OFF"");",0,1,0,0,1
+"lcd.print(""Alarm: "");",0,1,0,0,1
+"lcd.print(alarmActive ? ""ACTIVE"" : ""OFF"");",0,1,0,0,1
+void displayTime() {,0,0,0,0,0
+"lcd.print(""Date & Time"");",0,1,0,0,1
+lcd.print(now.year());,0,1,0,0,1
+lcd.print('/');,0,1,0,0,1
+lcd.print(now.month());,0,1,0,0,1
+lcd.print(now.day());,0,1,0,0,1
+lcd.print(now.hour());,0,1,0,0,1
+if (now.minute() < 10) lcd.print('0');,0,1,0,0,1
+if (now.second() < 10) lcd.print('0');,0,1,0,0,1
+lcd.print(now.second());,0,1,0,0,1
+"lcd.print(""Sched. tasks: "");",0,1,0,0,1
+lcd.print(scheduleCount);,0,1,0,0,1
+void checkEnvironmentConditions() {,0,0,0,0,0
+if (temperature > TEMP_THRESHOLD_HIGH && !fanOn) {,0,0,0,0,0
+turnOnFan();,0,0,0,0,0
+} else if (temperature < TEMP_THRESHOLD_LOW && fanOn) {,0,0,0,0,0
+turnOffFan();,0,0,0,0,0
+if (temperature < TEMP_THRESHOLD_LOW && !heaterOn) {,0,0,0,0,0
+turnOnHeater();,0,0,0,0,0
+} else if (temperature > TEMP_THRESHOLD_LOW + 2 && heaterOn) {,0,0,0,0,0
+turnOffHeater();,0,0,0,0,0
+if (lightLevel < LIGHT_THRESHOLD && !lightsOn) {,0,0,0,0,0
+turnOnLights();,0,0,0,0,0
+} else if (lightLevel > LIGHT_THRESHOLD + 100 && lightsOn) {,0,0,0,0,0
+turnOffLights();,0,0,0,0,0
+if (soilMoisture < MOISTURE_THRESHOLD && !pumpOn) {,0,0,0,0,0
+turnOnPump();,0,0,0,0,0
+} else if (soilMoisture > MOISTURE_THRESHOLD + 100 && pumpOn) {,0,0,0,0,0
+turnOffPump();,0,0,0,0,0
+if (waterLevel > WATER_THRESHOLD) {,0,0,0,0,0
+"digitalWrite(WATER_VALVE_PIN, HIGH);",0,1,0,0,1
+if (gasLevel > GAS_THRESHOLD || flameLevel < FLAME_THRESHOLD) {,0,0,0,0,0
+"triggerAlarm(""Gas or fire detected"");",0,0,0,0,0
+windowOpen = true;,0,0,0,0,0
+windowServo.write(90);,0,1,0,0,1
+void checkSecurity() {,0,0,0,0,0
+if (systemArmed) {,0,0,0,0,0
+if ((motionDetected || doorOpen) && !alarmActive) {,0,0,0,0,0
+"triggerAlarm(""Security breach"");",0,0,0,0,0
+void triggerAlarm(String reason) {,0,0,0,0,0
+alarmActive = true;,0,0,0,0,0
+"digitalWrite(BUZZER_PIN, HIGH);",0,1,0,0,1
+"digitalWrite(LED_RED_PIN, HIGH);",0,1,0,0,1
+"Serial.print(""ALARM: "");",0,1,0,0,1
+Serial.println(reason);,0,1,0,0,1
+void disableAlarm() {,0,0,0,0,0
+alarmActive = false;,0,0,0,0,0
+"Serial.println(""Alarm disabled"");",0,1,0,0,1
+void turnOnFan() {,0,0,0,0,0
+"digitalWrite(FAN_PIN, HIGH);",0,1,0,0,1
+"Serial.println(""Fan turned ON"");",0,1,0,0,1
+void turnOffFan() {,0,0,0,0,0
+"Serial.println(""Fan turned OFF"");",0,1,0,0,1
+void turnOnHeater() {,0,0,0,0,0
+"digitalWrite(HEATER_PIN, HIGH);",0,1,0,0,1
+"Serial.println(""Heater turned ON"");",0,1,0,0,1
+void turnOffHeater() {,0,0,0,0,0
+"Serial.println(""Heater turned OFF"");",0,1,0,0,1
+void turnOnLights() {,0,0,0,0,0
+lightsOn = true;,0,0,0,0,0
+"digitalWrite(RELAY_1, LOW);",0,1,0,0,1
+"digitalWrite(RELAY_2, LOW);",0,1,0,0,1
+"Serial.println(""Lights turned ON"");",0,1,0,0,1
+void turnOffLights() {,0,0,0,0,0
+lightsOn = false;,0,0,0,0,0
+"Serial.println(""Lights turned OFF"");",0,1,0,0,1
+void openWindow() {,0,0,0,0,0
+"digitalWrite(WINDOW_MOTOR_PIN_1, HIGH);",0,1,0,0,1
+"Serial.println(""Window opened"");",0,1,0,0,1
+void closeWindow() {,0,0,0,0,0
+windowOpen = false;,0,0,0,0,0
+"digitalWrite(WINDOW_MOTOR_PIN_2, HIGH);",0,1,0,0,1
+"Serial.println(""Window closed"");",0,1,0,0,1
+void turnOnPump() {,0,0,0,0,0
+pumpOn = true;,0,0,0,0,0
+"digitalWrite(PUMP_PIN, HIGH);",0,1,0,0,1
+"Serial.println(""Pump turned ON"");",0,1,0,0,1
+void turnOffPump() {,0,0,0,0,0
+pumpOn = false;,0,0,0,0,0
+"Serial.println(""Pump turned OFF"");",0,1,0,0,1
+void checkRFIDAccess() {,0,0,0,0,0
+if (rfid.isCard()) {,0,0,0,0,0
+if (rfid.readCardSerial()) {,1,0,0,0,1
+"Serial.print(""Card detected: "");",0,1,0,0,1
+for (int i = 0; i < 5; i++) {,0,0,0,0,0
+"Serial.print(rfid.serNum[i], DEC);",0,1,0,0,1
+"Serial.print("" "");",0,1,0,0,1
+Serial.println();,0,1,0,0,1
+if (checkAuthorizedTag(rfid.serNum)) {,0,0,0,0,0
+"Serial.println(""Access granted"");",0,1,0,0,1
+systemArmed = !systemArmed;,0,0,0,0,0
+if (alarmActive) {,0,0,0,0,0
+disableAlarm();,0,0,0,0,0
+"lcd.print(""Access Granted"");",0,1,0,0,1
+"lcd.print(""System "");",0,1,0,0,1
+"Serial.println(""Access denied"");",0,1,0,0,1
+"lcd.print(""Access Denied"");",0,1,0,0,1
+"lcd.print(""Unauthorized Tag"");",0,1,0,0,1
+rfid.halt();,0,0,0,0,0
+boolean checkAuthorizedTag(byte* tagData) {,0,0,0,0,0
+boolean match = true;,0,0,0,0,0
+for (int j = 0; j < 5; j++) {,0,0,0,0,0
+if (tagData[j] != authorizedTags[i][j]) {,0,0,0,0,0
+match = false;,0,0,0,0,0
+if (match) {,0,0,0,0,0
+void processSerialCommands() {,0,0,0,0,0
+if (Serial.available() > 0) {,1,0,0,0,1
+String command = Serial.readStringUntil('\n');,1,0,0,0,1
+command.trim();,0,0,0,0,0
+"if (command.startsWith(""FAN"")) {",0,0,0,0,0
+"if (command.indexOf(""ON"") != -1) {",0,0,0,0,0
+"} else if (command.indexOf(""OFF"") != -1) {",0,0,0,0,0
+"} else if (command.startsWith(""HEATER"")) {",0,0,0,0,0
+"} else if (command.startsWith(""LIGHTS"")) {",0,0,0,0,0
+"} else if (command.startsWith(""WINDOW"")) {",0,0,0,0,0
+"if (command.indexOf(""OPEN"") != -1) {",0,0,0,0,0
+openWindow();,0,0,0,0,0
+"} else if (command.indexOf(""CLOSE"") != -1) {",0,0,0,0,0
+closeWindow();,0,0,0,0,0
+"} else if (command.startsWith(""PUMP"")) {",0,0,0,0,0
+"} else if (command.startsWith(""SYSTEM"")) {",0,0,0,0,0
+"if (command.indexOf(""ARM"") != -1) {",0,0,0,0,0
+systemArmed = true;,0,0,0,0,0
+"Serial.println(""System ARMED"");",0,1,0,0,1
+"} else if (command.indexOf(""DISARM"") != -1) {",0,0,0,0,0
+systemArmed = false;,0,0,0,0,0
+"Serial.println(""System DISARMED"");",0,1,0,0,1
+"} else if (command.startsWith(""ALARM"")) {",0,0,0,0,0
+"if (command.indexOf(""OFF"") != -1) {",0,0,0,0,0
+"} else if (command.startsWith(""STATUS"")) {",0,0,0,0,0
+printSystemStatus();,0,0,0,0,0
+"} else if (command.startsWith(""SCHEDULE"")) {",0,0,0,0,0
+"if (command.indexOf(""ADD"") != -1) {",0,0,0,0,0
+addScheduleItem(command);,0,0,0,0,0
+"} else if (command.indexOf(""LIST"") != -1) {",0,0,0,0,0
+listSchedule();,0,0,0,0,0
+"} else if (command.indexOf(""CLEAR"") != -1) {",0,0,0,0,0
+clearSchedule();,0,0,0,0,0
+"} else if (command.startsWith(""LOG"")) {",0,0,0,0,0
+"if (command.indexOf(""VIEW"") != -1) {",0,0,0,0,0
+viewLog();,0,0,0,0,0
+clearLog();,0,0,0,0,0
+"} else if (command.startsWith(""HELP"")) {",0,0,0,0,0
+printHelp();,0,0,0,0,0
+void printSystemStatus() {,0,0,0,0,0
+"Serial.println(""SYSTEM STATUS"");",0,1,0,0,1
+Serial.print(temperature);,0,1,0,0,1
+"Serial.print(""C, Humidity: "");",0,1,0,0,1
+Serial.print(humidity);,0,1,0,0,1
+"Serial.println(""%"");",0,1,0,0,1
+"Serial.print(""Outdoor Temp: "");",0,1,0,0,1
+Serial.print(outdoorTemp);,0,1,0,0,1
+"Serial.print(""C, Light Level: "");",0,1,0,0,1
+Serial.println(lightLevel);,0,1,0,0,1
+"Serial.print(""Water Level: "");",0,1,0,0,1
+Serial.print(waterLevel);,0,1,0,0,1
+"Serial.print("", Soil Moisture: "");",0,1,0,0,1
+Serial.println(soilMoisture);,0,1,0,0,1
+"Serial.print(""Gas Level: "");",0,1,0,0,1
+Serial.print(gasLevel);,0,1,0,0,1
+"Serial.print("", Flame Level: "");",0,1,0,0,1
+Serial.println(flameLevel);,0,1,0,0,1
+"Serial.print(""Motion: "");",0,1,0,0,1
+"Serial.print(motionDetected ? ""DETECTED"" : ""None"");",0,1,0,0,1
+"Serial.print("", Door: "");",0,1,0,0,1
+"Serial.println(doorOpen ? ""OPEN"" : ""CLOSED"");",0,1,0,0,1
+"Serial.print(""Fan: "");",0,1,0,0,1
+"Serial.print(fanOn ? ""ON"" : ""OFF"");",0,1,0,0,1
+"Serial.print("", Heater: "");",0,1,0,0,1
+"Serial.println(heaterOn ? ""ON"" : ""OFF"");",0,1,0,0,1
+"Serial.print(""Lights: "");",0,1,0,0,1
+"Serial.print(lightsOn ? ""ON"" : ""OFF"");",0,1,0,0,1
+"Serial.print("", Window: "");",0,1,0,0,1
+"Serial.println(windowOpen ? ""OPEN"" : ""CLOSED"");",0,1,0,0,1
+"Serial.print(""Pump: "");",0,1,0,0,1
+"Serial.print(pumpOn ? ""ON"" : ""OFF"");",0,1,0,0,1
+"Serial.print("", Alarm: "");",0,1,0,0,1
+"Serial.println(alarmActive ? ""ACTIVE"" : ""OFF"");",0,1,0,0,1
+"Serial.print(""System: "");",0,1,0,0,1
+"Serial.println(systemArmed ? ""ARMED"" : ""DISARMED"");",0,1,0,0,1
+"Serial.print(""Current Time: "");",0,1,0,0,1
+Serial.print(now.year());,0,1,0,0,1
+Serial.print('/');,0,1,0,0,1
+Serial.print(now.month());,0,1,0,0,1
+Serial.print(now.day());,0,1,0,0,1
+Serial.print(' ');,0,1,0,0,1
+Serial.print(now.hour());,0,1,0,0,1
+Serial.print(':');,0,1,0,0,1
+Serial.print(now.minute());,0,1,0,0,1
+Serial.println(now.second());,0,1,0,0,1
+void printHelp() {,0,0,0,0,0
+"Serial.println(""Available commands:"");",0,1,0,0,1
+"Serial.println(""FAN ON/OFF - Control fan"");",0,1,0,0,1
+"Serial.println(""HEATER ON/OFF - Control heater"");",0,1,0,0,1
+"Serial.println(""LIGHTS ON/OFF - Control lights"");",0,1,0,0,1
+"Serial.println(""WINDOW OPEN/CLOSE - Control window"");",0,1,0,0,1
+"Serial.println(""PUMP ON/OFF - Control pump"");",0,1,0,0,1
+"Serial.println(""SYSTEM ARM/DISARM - Arm or disarm security system"");",0,1,0,0,1
+"Serial.println(""ALARM OFF - Disable alarm"");",0,1,0,0,1
+"Serial.println(""STATUS - Print system status"");",0,1,0,0,1
+"Serial.println(""SCHEDULE ADD,HH,MM,ACTION,TARGET,VALUE - Add schedule item"");",0,1,0,0,1
+"Serial.println(""SCHEDULE LIST - List scheduled tasks"");",0,1,0,0,1
+"Serial.println(""SCHEDULE CLEAR - Clear all scheduled tasks"");",0,1,0,0,1
+"Serial.println(""LOG VIEW - View sensor log"");",0,1,0,0,1
+"Serial.println(""LOG CLEAR - Clear sensor log"");",0,1,0,0,1
+"Serial.println(""HELP - Print this help message"");",0,1,0,0,1
+void addScheduleItem(String command) {,0,0,0,0,0
+if (scheduleCount >= MAX_SCHEDULE_ITEMS) {,0,0,0,0,0
+"Serial.println(""Schedule is full"");",0,1,0,0,1
+"int commaIndex1 = command.indexOf(',', 13);",0,0,0,0,0
+"int commaIndex2 = command.indexOf(',', commaIndex1 + 1);",0,0,0,0,0
+"int commaIndex3 = command.indexOf(',', commaIndex2 + 1);",0,0,0,0,0
+"int commaIndex4 = command.indexOf(',', commaIndex3 + 1);",0,0,0,0,0
+"int commaIndex5 = command.indexOf(',', commaIndex4 + 1);",0,0,0,0,0
+if (commaIndex1 == -1 || commaIndex2 == -1 || commaIndex3 == -1 || commaIndex4 == -1) {,0,0,0,0,0
+"Serial.println(""Invalid format. Use: SCHEDULE ADD,HH,MM,ACTION,TARGET,VALUE"");",0,1,0,0,1
+"byte hour = command.substring(13, commaIndex1).toInt();",0,0,0,0,0
+"byte minute = command.substring(commaIndex1 + 1, commaIndex2).toInt();",0,0,0,0,0
+"byte action = command.substring(commaIndex2 + 1, commaIndex3).toInt();",0,0,0,0,0
+"byte target = command.substring(commaIndex3 + 1, commaIndex4).toInt();",0,0,0,0,0
+byte value = command.substring(commaIndex4 + 1).toInt();,0,0,0,0,0
+schedule[scheduleCount].hour = hour;,0,0,0,0,0
+schedule[scheduleCount].minute = minute;,0,0,0,0,0
+schedule[scheduleCount].action = action;,0,0,0,0,0
+schedule[scheduleCount].target = target;,0,0,0,0,0
+schedule[scheduleCount].value = value;,0,0,0,0,0
+scheduleCount++;,0,0,0,0,0
+saveScheduleToEEPROM();,0,0,0,0,0
+"Serial.print(""Schedule item added: "");",0,1,0,0,1
+Serial.print(hour);,0,1,0,0,1
+"Serial.print("":"");",0,1,0,0,1
+Serial.print(minute);,0,1,0,0,1
+"Serial.print("" Action:"");",0,1,0,0,1
+Serial.print(action);,0,1,0,0,1
+"Serial.print("" Target:"");",0,1,0,0,1
+Serial.print(target);,0,1,0,0,1
+"Serial.print("" Value:"");",0,1,0,0,1
+Serial.println(value);,0,1,0,0,1
+void listSchedule() {,0,0,0,0,0
+"Serial.println(""Scheduled Tasks:"");",0,1,0,0,1
+for (int i = 0; i < scheduleCount; i++) {,0,0,0,0,0
+Serial.print(i);,0,1,0,0,1
+"Serial.print("": "");",0,1,0,0,1
+Serial.print(schedule[i].hour);,0,1,0,0,1
+"if (schedule[i].minute < 10) Serial.print(""0"");",0,1,0,0,1
+Serial.print(schedule[i].minute);,0,1,0,0,1
+Serial.print(schedule[i].action);,0,1,0,0,1
+Serial.print(schedule[i].target);,0,1,0,0,1
+Serial.println(schedule[i].value);,0,1,0,0,1
+void clearSchedule() {,0,0,0,0,0
+scheduleCount = 0;,0,0,0,0,0
+"Serial.println(""Schedule cleared"");",0,1,0,0,1
+void saveScheduleToEEPROM() {,0,0,0,0,0
+"EEPROM.write(0, scheduleCount);",0,0,0,1,1
+int baseAddr = 1 + (i * 5);,0,0,0,0,0
+"EEPROM.write(baseAddr, schedule[i].hour);",0,0,0,1,1
+"EEPROM.write(baseAddr + 1, schedule[i].minute);",0,0,0,1,1
+"EEPROM.write(baseAddr + 2, schedule[i].action);",0,0,0,1,1
+"EEPROM.write(baseAddr + 3, schedule[i].target);",0,0,0,1,1
+"EEPROM.write(baseAddr + 4, schedule[i].value);",0,0,0,1,1
+void loadScheduleFromEEPROM() {,0,0,0,0,0
+scheduleCount = EEPROM.read(0);,0,0,1,0,1
+if (scheduleCount > MAX_SCHEDULE_ITEMS) {,0,0,0,0,0
+schedule[i].hour = EEPROM.read(baseAddr);,0,0,1,0,1
+schedule[i].minute = EEPROM.read(baseAddr + 1);,0,0,1,0,1
+schedule[i].action = EEPROM.read(baseAddr + 2);,0,0,1,0,1
+schedule[i].target = EEPROM.read(baseAddr + 3);,0,0,1,0,1
+schedule[i].value = EEPROM.read(baseAddr + 4);,0,0,1,0,1
+void checkScheduledTasks() {,0,0,0,0,0
+if (schedule[i].hour == now.hour() && schedule[i].minute == now.minute()) {,0,0,0,0,0
+executeScheduledTask(i);,0,0,0,0,0
+void executeScheduledTask(int index) {,0,0,0,0,0
+byte action = schedule[index].action;,0,0,0,0,0
+byte target = schedule[index].target;,0,0,0,0,0
+byte value = schedule[index].value;,0,0,0,0,0
+switch (action) {,0,0,0,0,0
+if (value > 0) turnOnFan();,0,0,0,0,0
+else turnOffFan();,0,0,0,0,0
+if (value > 0) turnOnHeater();,0,0,0,0,0
+else turnOffHeater();,0,0,0,0,0
+if (value > 0) turnOnLights();,0,0,0,0,0
+else turnOffLights();,0,0,0,0,0
+if (value > 0) openWindow();,0,0,0,0,0
+else closeWindow();,0,0,0,0,0
+if (value > 0) turnOnPump();,0,0,0,0,0
+else turnOffPump();,0,0,0,0,0
+case 6:,0,0,0,0,0
+systemArmed = (value > 0);,0,0,0,0,0
+void logSensorData() {,0,0,0,0,0
+if (logIndex >= LOG_SIZE) {,0,0,0,0,0
+logIndex = 0;,0,0,0,0,0
+sensorLog[logIndex].timestamp = millis();,0,0,0,0,0
+sensorLog[logIndex].sensorType = 1;,0,0,0,0,0
+sensorLog[logIndex].sensorValue = (int)(temperature * 100);,0,0,0,0,0
+logIndex++;,0,0,0,0,0
+sensorLog[logIndex].sensorType = 2;,0,0,0,0,0
+sensorLog[logIndex].sensorValue = (int)(humidity * 100);,0,0,0,0,0
+void viewLog() {,0,0,0,0,0
+"Serial.println(""Sensor Log:"");",0,1,0,0,1
+for (int i = 0; i < LOG_SIZE; i++) {,0,0,0,0,0
+if (sensorLog[i].timestamp > 0) {,0,0,0,0,0
+"Serial.print(""Time: "");",0,1,0,0,1
+Serial.print(sensorLog[i].timestamp / 1000);,0,1,0,0,1
+"Serial.print(""s, Type: "");",0,1,0,0,1
+"import pygame, sys, random, math",0,0,0,0,0
+pygame.init(),0,0,0,0,0
+WIDTH = 2000,0,0,0,1,1
+HEIGHT = 1200,0,0,0,1,1
+"screen = pygame.display.set_mode((WIDTH, HEIGHT))",0,0,2,1,3
+pygame.display.set_caption('Ulam Spiral'),0,0,0,0,0
+over_screen = pygame.image.load('images/mainmenu.jpg').convert_alpha(),0,0,0,1,1
+"over_rect = over_screen.get_rect(center = (WIDTH // 2, HEIGHT // 2))",0,0,2,1,3
+"font = pygame.font.Font('font/CrimsonText-Bold.ttf', 60)",0,0,0,1,1
+"prime_label = font.render('Prime', True, 'gray')",0,0,0,1,1
+"prime_rect = prime_label.get_rect(center = (480, 1100))",0,0,1,1,2
+"random_label = font.render('Random', True, 'gray')",0,0,0,1,1
+"random_rect = random_label.get_rect(center = (1500, 1100))",0,0,1,1,2
+x_prime = 480,0,0,0,1,1
+y_prime = HEIGHT // 2 - 100,0,0,1,1,2
+step_size = 1,0,0,0,1,1
+steps = 0,0,0,0,1,1
+switch_counter = 0,0,0,0,1,1
+num = 1,0,0,0,1,1
+horizontal = True,0,0,0,1,1
+increment = True,0,0,0,1,1
+x_random = 1500,0,0,0,1,1
+y_random = HEIGHT // 2 - 100,0,0,1,1,2
+step_size_random = 1,0,0,0,1,1
+steps_random = 0,0,0,0,1,1
+switch_counter_random = 0,0,0,0,1,1
+num_random = 1,0,0,0,1,1
+horizontal_random = True,0,0,0,1,1
+increment_random = True,0,0,0,1,1
+start = False,0,0,0,1,1
+switched = False,0,0,0,1,1
+n = 12000,0,0,0,1,1
+class Button:,0,0,0,0,0
+"def __init__(self, text, x_pos, y_pos):",3,0,0,0,3
+self.text = text,0,0,1,1,2
+self.x_pos = x_pos,0,0,1,1,2
+self.y_pos = y_pos,0,0,1,1,2
+self.draw(),0,0,0,0,0
+def draw(self):,0,0,0,0,0
+"button_text = font.render(self.text, True, 'black')",0,0,1,1,2
+"button_rect = pygame.rect.Rect((self.x_pos, self.y_pos), (520, 100))",0,0,2,1,3
+"pygame.draw.rect(screen, 'gray', button_rect, 0, 5)",0,0,2,1,3
+"screen.blit(button_text, (self.x_pos + 20, self.y_pos + 5))",0,0,3,1,4
+def check_click(self):,0,1,0,0,1
+mouse_pos = pygame.mouse.get_pos(),0,0,0,1,1
+left_click = pygame.mouse.get_pressed()[0],0,0,0,1,1
+if left_click and button_rect.collidepoint(mouse_pos):,0,0,2,0,2
+return True,0,0,0,0,0
+return False,0,0,0,0,0
+is_prime = [True] * (n + 1),0,0,1,1,2
+is_prime[0] = is_prime[1] = False,0,0,0,2,2
+"for i in range(2, n + 1):",0,0,1,0,1
+if is_prime[i] and i * i <= n:,0,0,3,0,3
+"for j in range(i * i, n + 1, i):",0,0,2,0,2
+is_prime[j] = False,0,0,1,1,2
+is_rand = [False] * (n + 1),0,0,1,1,2
+for i in range(n):,0,0,1,0,1
+if random.random() < 1 / math.log(n):,0,0,1,0,1
+is_rand[i] = True,0,0,1,1,2
+"screen.blit(over_screen, over_rect)",0,0,2,1,3
+"button = Button('Prime vs. Random', 760, 700)",0,0,0,1,1
+while True:,0,0,0,0,0
+for event in pygame.event.get():,0,0,0,0,0
+if event.type == pygame.QUIT:,0,0,1,0,1
+pygame.quit(),0,0,0,0,0
+sys.exit(),0,0,0,0,0
+if button.check_click():,0,0,0,0,0
+start = True,0,0,0,1,1
+if start:,0,0,1,0,1
+if not switched:,0,0,1,0,1
+screen.fill('black'),0,0,0,1,1
+switched = True,0,0,0,1,1
+"screen.blit(prime_label, prime_rect)",0,0,2,1,3
+"screen.blit(random_label, random_rect)",0,0,2,1,3
+if is_prime[num]:,0,0,2,0,2
+"pygame.draw.circle(screen, 'white', (x_prime, y_prime), 4, 0)",0,0,2,1,3
+if steps == step_size:,0,0,2,0,2
+horizontal = not horizontal,0,0,1,1,2
+switch_counter += 1,0,0,1,1,2
+if switch_counter == 2:,0,0,1,0,1
+step_size += 1,0,0,1,1,2
+inc = 8 if step_size % 2 == 1 else -8,0,0,1,1,2
+if horizontal:,0,0,1,0,1
+x_prime += inc,0,0,2,1,3
+else:,0,0,0,0,0
+y_prime -= inc,0,0,2,1,3
+steps += 1,0,0,1,1,2
+if num < n:,0,0,2,0,2
+num += 1,0,0,1,1,2
+if is_rand[num_random]:,0,0,2,0,2
+"pygame.draw.circle(screen, 'white', (x_random, y_random), 4, 0)",0,0,2,1,3
+if steps_random == step_size_random:,0,0,2,0,2
+horizontal_random = not horizontal_random,0,0,1,1,2
+switch_counter_random += 1,0,0,1,1,2
+if switch_counter_random == 2:,0,0,1,0,1
+step_size_random += 1,0,0,1,1,2
+inc_random = 8 if step_size_random % 2 == 1 else -8,0,0,1,1,2
+x_random += inc_random,0,0,2,1,3
+y_random -= inc_random,0,0,2,1,3
+steps_random += 1,0,0,1,1,2
+if num_random < n:,0,0,2,0,2
+num_random += 1,0,0,1,1,2
+pygame.display.update(),0,0,0,1,1
+"import pygame, sys, time, math, random",0,0,0,0,0
+WIDTH = 1200,0,0,0,1,1
+HEIGHT = 1400,0,0,0,1,1
+O_COLOR = '#026165',0,0,0,1,1
+X_COLOR = '#f1f1f1',0,0,0,1,1
+BACKGROUND = '#649ca3',0,0,0,1,1
+GRID = '#deb987',0,0,0,1,1
+"board = [['']*3, ['']*3, ['']*3]",0,0,0,1,1
+move_counter = 0,0,0,0,1,1
+player_x = True,0,0,0,1,1
+need_restart = False,0,0,0,1,1
+winner = '',0,0,0,1,1
+"scores = {'x': 10, 'o': -10, 'tie': 0}",0,0,0,1,1
+pygame.display.set_caption('TicTacToe AI'),0,0,0,0,0
+screen.fill(BACKGROUND),0,0,1,1,2
+"result_font = pygame.font.Font('font/Pixeltype.ttf', 160)",0,0,0,1,1
+"restart_font = pygame.font.Font('font/Pixeltype.ttf', 90)",0,0,0,1,1
+"ai_surface = result_font.render('AI WON!', False, (64, 64, 64))",0,0,0,1,1
+"tie_surface = result_font.render('It\'s a Tie!', False, (64, 64, 64))",0,0,0,1,1
+"restart_surface = restart_font.render('Press Space to restart', False, (64, 64, 64))",0,0,0,1,1
+"restart_rect = restart_surface.get_rect(topleft = (530, 1300))",0,0,1,1,2
+"result_rect = ai_surface.get_rect(topleft = (50, 1280))",0,0,1,1,2
+def drawBoard():,0,0,0,0,0
+"for start in range(WIDTH // 3, WIDTH, WIDTH // 3):",0,0,2,0,2
+"pygame.draw.line(screen, GRID, (start, 50), (start, 1150), 12)",0,0,2,1,3
+"pygame.draw.line(screen, GRID, (50, start), (1150, start), 12)",0,0,2,1,3
+"def drawX(i, j):",2,0,0,0,2
+min_x = max_x = 400 * j + 200,0,0,1,2,3
+min_y = max_y = 400 * i + 200,0,0,1,2,3
+min_x -= 80,0,0,1,1,2
+max_x += 80,0,0,1,1,2
+min_y -= 80,0,0,1,1,2
+max_y += 80,0,0,1,1,2
+"pygame.draw.line(screen, X_COLOR, (min_x, min_y), (max_x, max_y), 26)",0,0,4,1,5
+"pygame.draw.line(screen, X_COLOR, (max_x, min_y), (min_x, max_y), 26)",0,0,4,1,5
+"def drawO(x, y):",2,0,0,0,2
+"pygame.draw.circle(screen, O_COLOR, (x, y), 100, 22)",0,0,2,1,3
+def center(pos):,1,1,0,0,2
+return 200 if pos <= 400 else 600 if pos <= 800 else 1000,0,0,1,0,1
+"def boardCoord(x, y):",2,1,0,0,3
+j = 0 if x == 200 else 1 if x == 600 else 2,0,0,1,1,2
+i = 0 if y == 200 else 1 if y == 600 else 2,0,0,1,1,2
+"return (i, j)",0,0,2,0,2
+def checkWinner(board):,1,1,0,0,2
+for i in range(3):,0,0,0,0,0
+if board[i][0] == board[i][1] and board[i][1] == board[i][2]:,0,0,3,0,3
+return board[i][0],0,0,1,0,1
+if board[0][i] == board[1][i] and board[1][i] == board[2][i]:,0,0,3,0,3
+return board[0][i],0,0,1,0,1
+if board[0][0] == board[1][1] and board[1][1] == board[2][2]:,0,0,3,0,3
+return board[0][0],0,0,1,0,1
+if board[0][2] == board[1][1] and board[1][1] == board[2][0]:,0,0,3,0,3
+return board[1][1],0,0,1,0,1
+if move_counter == 9:,0,0,1,0,1
+return 'tie',0,0,0,0,0
+return '',0,0,0,0,0
+"def minimax(board, is_maximizing, alpha = -math.inf, beta = math.inf):",4,1,0,0,5
+result = checkWinner(board),0,0,1,1,2
+if result != '':,0,0,1,0,1
+return scores[result],0,0,2,0,2
+if is_maximizing:,0,0,1,0,1
+max_score = -math.inf,0,0,0,1,1
+for j in range(3):,0,0,0,0,0
+if board[i][j] == '':,0,0,2,0,2
+board[i][j] = 'x',0,0,2,1,3
+"score = minimax(board, False)",0,0,1,1,2
+board[i][j] = '',0,0,2,1,3
+"alpha = max(alpha, score)",0,0,2,1,3
+"max_score = max(score, max_score)",0,0,2,1,3
+if beta <= alpha:,0,0,2,0,2
+break,0,0,0,0,0
+else: continue,0,0,0,0,0
+return max_score,0,0,1,0,1
+min_score = math.inf,0,0,0,1,1
+board[i][j] = 'o',0,0,2,1,3
+"score = minimax(board, True)",0,0,1,1,2
+"beta = min(score, beta)",0,0,2,1,3
+"min_score = min(score, min_score)",0,0,2,1,3
+if (beta <= alpha):,0,0,2,0,2
+return min_score,0,0,1,0,1
+drawBoard(),0,0,0,0,0
+if __name__ == '__main__':,0,0,0,0,0
+if need_restart and event.type == pygame.KEYDOWN:,0,0,2,0,2
+if event.key == pygame.K_SPACE:,0,0,1,0,1
+for r in range(3):,0,0,0,0,0
+for c in range(3):,0,0,0,0,0
+board[r][c] = '',0,0,2,1,3
+if event.type == pygame.MOUSEBUTTONDOWN and not player_x and not need_restart:,0,0,3,0,3
+if event.button == 1:,0,0,1,0,1
+"mx, my = pygame.mouse.get_pos()",0,0,0,2,2
+mx = center(mx),0,0,1,1,2
+my = center(my),0,0,1,1,2
+"x, y = boardCoord(mx, my)",0,0,2,2,4
+if board[x][y] == '':,0,0,2,0,2
+"drawO(mx, my)",0,0,2,0,2
+board[x][y] = 'o',0,0,2,1,3
+move_counter += 1,0,0,1,1,2
+if player_x and move_counter < 9 and not need_restart:,0,0,3,0,3
+best_score = -math.inf,0,0,0,1,1
+if score > best_score:,0,0,2,0,2
+best_score = score,0,0,1,1,2
+"best_move = (i, j)",0,0,2,1,3
+"drawX(best_move[0], best_move[1])",0,0,2,0,2
+board[best_move[0]][best_move[1]] = 'x',0,0,2,1,3
+player_x = False,0,0,0,1,1
+winner = checkWinner(board),0,0,1,1,2
+print(board[i]),0,0,1,1,2
+if winner == 'x' or move_counter == 9:,0,0,2,0,2
+if winner == 'x':,0,0,1,0,1
+"screen.blit(ai_surface, result_rect)",0,0,2,1,3
+"screen.blit(tie_surface, result_rect)",0,0,2,1,3
+"screen.blit(restart_surface, restart_rect)",0,0,2,1,3
+need_restart = True,0,0,0,1,1
