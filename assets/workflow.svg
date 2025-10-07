@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600">
+  <defs>
+    <style>
+      .title { font: bold 20px sans-serif; fill: #333; }
+      .step-title { font: bold 16px sans-serif; fill: white; }
+      .step-desc { font: 13px sans-serif; fill: white; }
+      .arrow { fill: none; stroke: #667eea; stroke-width: 3; marker-end: url(#arrow); }
+      .step-box { rx: 10; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#667eea" />
+    </marker>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <text x="500" y="40" text-anchor="middle" class="title">COSMIC-AI Processing Workflow</text>
+  
+  <!-- Step 1: Upload -->
+  <rect x="50" y="80" width="180" height="90" class="step-box" fill="url(#grad1)"/>
+  <text x="140" y="110" text-anchor="middle" class="step-title">1. Upload Code</text>
+  <text x="140" y="135" text-anchor="middle" class="step-desc">User uploads source</text>
+  <text x="140" y="155" text-anchor="middle" class="step-desc">code via web UI</text>
+  
+  <!-- Arrow 1 -->
+  <path d="M 230 125 L 290 125" class="arrow"/>
+  
+  <!-- Step 2: Preprocessing -->
+  <rect x="290" y="80" width="180" height="90" class="step-box" fill="url(#grad2)"/>
+  <text x="380" y="110" text-anchor="middle" class="step-title">2. Preprocess</text>
+  <text x="380" y="135" text-anchor="middle" class="step-desc">Filter comments</text>
+  <text x="380" y="155" text-anchor="middle" class="step-desc">& empty lines</text>
+  
+  <!-- Arrow 2 -->
+  <path d="M 470 125 L 530 125" class="arrow"/>
+  
+  <!-- Step 3: Tokenization -->
+  <rect x="530" y="80" width="180" height="90" class="step-box" fill="url(#grad3)"/>
+  <text x="620" y="110" text-anchor="middle" class="step-title">3. Tokenize</text>
+  <text x="620" y="135" text-anchor="middle" class="step-desc">CodeBERT tokenizer</text>
+  <text x="620" y="155" text-anchor="middle" class="step-desc">converts to tokens</text>
+  
+  <!-- Arrow 3 -->
+  <path d="M 710 125 L 770 125" class="arrow"/>
+  
+  <!-- Step 4: Prediction -->
+  <rect x="770" y="80" width="180" height="90" class="step-box" fill="url(#grad4)"/>
+  <text x="860" y="110" text-anchor="middle" class="step-title">4. Predict</text>
+  <text x="860" y="135" text-anchor="middle" class="step-desc">Model predicts</text>
+  <text x="860" y="155" text-anchor="middle" class="step-desc">E, X, R, W per line</text>
+  
+  <!-- Arrow down -->
+  <path d="M 860 170 L 860 220" class="arrow"/>
+  
+  <!-- Step 5: Aggregate -->
+  <rect x="770" y="220" width="180" height="90" class="step-box" fill="url(#grad5)"/>
+  <text x="860" y="250" text-anchor="middle" class="step-title">5. Aggregate</text>
+  <text x="860" y="275" text-anchor="middle" class="step-desc">Calculate total CFP</text>
+  <text x="860" y="295" text-anchor="middle" class="step-desc">& statistics</text>
+  
+  <!-- Arrow back -->
+  <path d="M 770 265 L 470 265" class="arrow"/>
+  
+  <!-- Step 6: Display -->
+  <rect x="290" y="220" width="180" height="90" class="step-box" fill="url(#grad1)"/>
+  <text x="380" y="250" text-anchor="middle" class="step-title">6. Display Results</text>
+  <text x="380" y="275" text-anchor="middle" class="step-desc">Show summary &</text>
+  <text x="380" y="295" text-anchor="middle" class="step-desc">line-by-line details</text>
+  
+  <!-- Example Output Box -->
+  <rect x="100" y="380" width="800" height="180" rx="10" fill="#f8f9fa" stroke="#667eea" stroke-width="2"/>
+  <text x="500" y="410" text-anchor="middle" style="font: bold 18px sans-serif; fill: #667eea;">Example Output</text>
+  
+  <!-- Code example -->
+  <text x="120" y="445" style="font: 14px monospace; fill: #333;">Line 1: int sum(int x, int y) {</text>
+  <text x="650" y="445" style="font: 14px sans-serif; fill: #555;">E=2, X=1, R=0, W=0 → CFP=3</text>
+  
+  <text x="120" y="470" style="font: 14px monospace; fill: #333;">Line 2: int z = 0;</text>
+  <text x="650" y="470" style="font: 14px sans-serif; fill: #555;">E=0, X=0, R=0, W=1 → CFP=1</text>
+  
+  <text x="120" y="495" style="font: 14px monospace; fill: #333;">Line 3: z = x + y;</text>
+  <text x="650" y="495" style="font: 14px sans-serif; fill: #555;">E=0, X=0, R=1, W=1 → CFP=2</text>
+  
+  <text x="120" y="520" style="font: 14px monospace; fill: #333;">Line 4: return z;</text>
+  <text x="650" y="520" style="font: 14px sans-serif; fill: #555;">E=0, X=0, R=1, W=0 → CFP=1</text>
+  
+  <text x="500" y="545" text-anchor="middle" style="font: bold 16px sans-serif; fill: #667eea;">Total CFP = 7</text>
+</svg>

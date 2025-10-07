@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <style>
+      .title { font: bold 24px sans-serif; fill: #333; }
+      .label { font: bold 16px sans-serif; fill: #555; }
+      .desc { font: 14px sans-serif; fill: #666; }
+      .box { fill: #f0f0f0; stroke: #333; stroke-width: 2; }
+      .arrow { fill: none; stroke: #4ecdc4; stroke-width: 3; marker-end: url(#arrowhead); }
+      .arrow-e { stroke: #ff6b6b; }
+      .arrow-x { stroke: #45b7d1; }
+      .arrow-r { stroke: #96ceb4; }
+      .arrow-w { stroke: #f9ca24; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#4ecdc4" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">COSMIC Data Movements</text>
+  
+  <!-- User Box -->
+  <rect x="50" y="150" width="150" height="100" rx="10" class="box"/>
+  <text x="125" y="190" text-anchor="middle" class="label">User</text>
+  <text x="125" y="210" text-anchor="middle" class="desc">(Actor)</text>
+  
+  <!-- Functional Process Box -->
+  <rect x="325" y="150" width="150" height="100" rx="10" class="box" style="fill: #667eea; stroke: #5a67d8;"/>
+  <text x="400" y="190" text-anchor="middle" class="label" style="fill: white;">Functional</text>
+  <text x="400" y="210" text-anchor="middle" class="label" style="fill: white;">Process</text>
+  
+  <!-- Persistent Storage Box -->
+  <rect x="600" y="150" width="150" height="100" rx="10" class="box"/>
+  <text x="675" y="190" text-anchor="middle" class="label">Persistent</text>
+  <text x="675" y="210" text-anchor="middle" class="label">Storage</text>
+  
+  <!-- Entry Arrow (E) -->
+  <path d="M 200 170 L 325 170" class="arrow arrow-e" marker-end="url(#arrowhead)"/>
+  <text x="262" y="165" text-anchor="middle" class="label" style="fill: #ff6b6b;">E (Entry)</text>
+  
+  <!-- Exit Arrow (X) -->
+  <path d="M 325 230 L 200 230" class="arrow arrow-x" marker-end="url(#arrowhead)" style="marker-end: url(#arrowhead); transform: scaleX(-1); transform-origin: center;"/>
+  <text x="262" y="245" text-anchor="middle" class="label" style="fill: #45b7d1;">X (Exit)</text>
+  
+  <!-- Read Arrow (R) -->
+  <path d="M 600 170 L 475 170" class="arrow arrow-r" marker-end="url(#arrowhead)" style="marker-end: url(#arrowhead); transform: scaleX(-1); transform-origin: center;"/>
+  <text x="537" y="165" text-anchor="middle" class="label" style="fill: #96ceb4;">R (Read)</text>
+  
+  <!-- Write Arrow (W) -->
+  <path d="M 475 230 L 600 230" class="arrow arrow-w" marker-end="url(#arrowhead)"/>
+  <text x="537" y="245" text-anchor="middle" class="label" style="fill: #f9ca24;">W (Write)</text>
+  
+  <!-- Legend -->
+  <text x="50" y="320" class="desc" style="font-weight: bold;">CFP = E + X + R + W</text>
+  <text x="50" y="345" class="desc">• Entry (E): Data from user to process</text>
+  <text x="50" y="365" class="desc">• Exit (X): Data from process to user</text>
+  <text x="50" y="385" class="desc">• Read (R): Data from storage to process</text>
+  <text x="420" y="345" class="desc">• Write (W): Data from process to storage</text>
+  <text x="420" y="365" class="desc">• Each movement = 1 CFP</text>
+</svg>

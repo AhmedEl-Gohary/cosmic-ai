@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 700">
+  <defs>
+    <style>
+      .title { font: bold 22px sans-serif; fill: #333; }
+      .layer-title { font: bold 15px sans-serif; fill: white; }
+      .layer-desc { font: 12px sans-serif; fill: white; }
+      .output-label { font: bold 14px sans-serif; fill: #555; }
+      .arrow { fill: none; stroke: #667eea; stroke-width: 2; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#667eea" />
+    </marker>
+    <linearGradient id="input-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="embed-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="trans-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pooler-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="regress-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <text x="400" y="35" text-anchor="middle" class="title">CodeBERT Model Architecture for COSMIC FSM</text>
+  
+  <!-- Input Layer -->
+  <rect x="250" y="70" width="300" height="60" rx="8" fill="url(#input-grad)"/>
+  <text x="400" y="95" text-anchor="middle" class="layer-title">Input: Source Code Line</text>
+  <text x="400" y="115" text-anchor="middle" class="layer-desc">Example: "int sum(int x, int y) {"</text>
+  
+  <!-- Arrow -->
+  <path d="M 400 130 L 400 160" class="arrow"/>
+  
+  <!-- Tokenizer -->
+  <rect x="250" y="160" width="300" height="60" rx="8" fill="url(#embed-grad)"/>
+  <text x="400" y="185" text-anchor="middle" class="layer-title">Tokenizer</text>
+  <text x="400" y="205" text-anchor="middle" class="layer-desc">Convert to token IDs (max 512 tokens)</text>
+  
+  <!-- Arrow -->
+  <path d="M 400 220 L 400 250" class="arrow"/>
+  
+  <!-- Embedding Layer -->
+  <rect x="250" y="250" width="300" height="60" rx="8" fill="url(#embed-grad)"/>
+  <text x="400" y="275" text-anchor="middle" class="layer-title">Embedding Layer</text>
+  <text x="400" y="295" text-anchor="middle" class="layer-desc">Token + Position + Segment embeddings (768-dim)</text>
+  
+  <!-- Arrow -->
+  <path d="M 400 310 L 400 340" class="arrow"/>
+  
+  <!-- Transformer Encoder -->
+  <rect x="200" y="340" width="400" height="120" rx="8" fill="url(#trans-grad)"/>
+  <text x="400" y="365" text-anchor="middle" class="layer-title">Transformer Encoder</text>
+  <text x="400" y="390" text-anchor="middle" class="layer-desc">12 layers × (Multi-Head Self-Attention + Feed-Forward)</text>
+  <text x="400" y="410" text-anchor="middle" class="layer-desc">12 attention heads, 768 hidden size</text>
+  <text x="400" y="430" text-anchor="middle" class="layer-desc">Pre-trained on 6 programming languages</text>
+  <text x="400" y="450" text-anchor="middle" class="layer-desc">(Python, Java, JavaScript, PHP, Ruby, Go)</text>
+  
+  <!-- Arrow -->
+  <path d="M 400 460 L 400 490" class="arrow"/>
+  
+  <!-- Pooler -->
+  <rect x="250" y="490" width="300" height="60" rx="8" fill="url(#pooler-grad)"/>
+  <text x="400" y="515" text-anchor="middle" class="layer-title">[CLS] Token Pooling</text>
+  <text x="400" y="535" text-anchor="middle" class="layer-desc">Extract representation (768-dim)</text>
+  
+  <!-- Arrow -->
+  <path d="M 400 550 L 400 580" class="arrow"/>
+  
+  <!-- Regression Head -->
+  <rect x="250" y="580" width="300" height="60" rx="8" fill="url(#regress-grad)"/>
+  <text x="400" y="605" text-anchor="middle" class="layer-title">Regression Head</text>
+  <text x="400" y="625" text-anchor="middle" class="layer-desc">Linear layer: 768 → 4 outputs</text>
+  
+  <!-- Output arrows -->
+  <path d="M 320 640 L 320 665" class="arrow"/>
+  <path d="M 370 640 L 370 665" class="arrow"/>
+  <path d="M 430 640 L 430 665" class="arrow"/>
+  <path d="M 480 640 L 480 665" class="arrow"/>
+  
+  <!-- Output boxes -->
+  <rect x="290" y="665" width="60" height="30" rx="5" fill="#ff6b6b"/>
+  <text x="320" y="685" text-anchor="middle" style="font: bold 14px sans-serif; fill: white;">E = 2</text>
+  
+  <rect x="360" y="665" width="60" height="30" rx="5" fill="#45b7d1"/>
+  <text x="390" y="685" text-anchor="middle" style="font: bold 14px sans-serif; fill: white;">X = 1</text>
+  
+  <rect x="430" y="665" width="60" height="30" rx="5" fill="#96ceb4"/>
+  <text x="460" y="685" text-anchor="middle" style="font: bold 14px sans-serif; fill: white;">R = 0</text>
+  
+  <rect x="500" y="665" width="60" height="30" rx="5" fill="#f9ca24"/>
+  <text x="530" y="685" text-anchor="middle" style="font: bold 14px sans-serif; fill: white;">W = 0</text>
+  
+  <!-- Total CFP -->
+  <text x="400" y="680" text-anchor="middle" class="output-label" style="font-size: 18px; fill: #667eea; font-weight: bold;">CFP = 3</text>
+</svg>
